@@ -1,6 +1,7 @@
 module.exports = {
     title: "Hertz's Blog",
     description: "Hertz's Blog By VuePress",
+    base: '/VuePressBlog/',
     themeConfig: {
         nav: [
             {
