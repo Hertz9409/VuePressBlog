@@ -128,6 +128,8 @@ categories: JS
                        }
                        xhr.open('POST', '/upload');
                        xhr.send(formData);
+                   } else {
+                    loadNext();
                    }
                }
                loadNext();
@@ -176,6 +178,8 @@ categories: JS
                        if (currentChunk < chunks) {
                            loadNext();
                        }
+                   } else {
+                    loadNext();
                    }
                }
                loadNext();
@@ -224,12 +228,22 @@ categories: JS
 * 通过md5校验是否已经上传文件片段
 
 ``` javascript
-app.get('/stitchUploadFile/:md5/:extension', function (req, res, next) {
-    try {
-        stitchUploadFile(req.params.md5, req.params.extension, res);
-    } catch (err) {
-        console.log("错误", err);
-    }
+app.get('/checkFileInServe/:md5', function (req, res, next) {
+    let fileMd5 = req.params.md5;
+    fs.readdir('./uploadFiles/', function (err, folder) {
+        if (folder.indexOf(fileMd5) >= 0) {
+            // 存在md文件夹
+            fs.readdir(`./uploadFiles/${fileMd5}/`, function (err, files) {
+                let chunkArr = [];
+                files.forEach(fileName => {
+                    chunkArr.push(Number(fileName));
+                });
+                res.send({ message: 'success', data: chunkArr });
+            });
+        } else {
+            res.send({ message: 'success', data: [] });
+        }
+    });
 });
 ```
 
