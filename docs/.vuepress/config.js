@@ -1,4 +1,6 @@
-module.exports = {
+const { fs, path } = require('@vuepress/shared-utils')
+
+module.exports = () => ({
     title: "Hertz's Blog",
     description: "Hertz's Blog By VuePress",
     base: '/VuePressBlogHtml/',
@@ -21,37 +23,9 @@ module.exports = {
         ],
         sidebarDepth: 3,
         sidebar: {
-            '/FrontEnd/': [
-                {
-                    title: "JS",
-                    collapsable: false,
-                    children: [
-                        ["JS/断点续传/", '断点续传'],
-                        ["JS/正则表达式基础/", '正则表达式基础']
-                    ]
-                },
-                {
-                    title: "CSS",
-                    collapsable: false,
-                    children: [
-                        ["CSS/CSS1/", 'css基础知识1'],
-                        ["CSS/CSS2/", 'css基础知识2']
-                    ]
-                },
-                {
-                    title: "HTML",
-                    collapsable: false,
-                    children: []
-                },
-                {
-                    title: "VUE",
-                    collapsable: false,
-                    children: [["VUE/My-Vue-Study-1/", 'VUE基础知识1'], ["VUE/My-Vue-Study-2/", 'VUE基础知识2'],]
-                }
-            ],
-            '/Others/': [
-                ["WIN10-FLASH-DEBUGGER-FOR-IE/", 'Win10下开启IE flash debugger'], ["代理服务/", '代理服务'], ["使用icomoon生成字体图标文件/", '使用icomoon生成字体图标文件']
-            ]
+            '/FrontEnd/': getCatalog('FrontEnd'),
+            '/BackEnd/': getCatalog('BackEnd'),
+            '/Others/': getCatalog('Others')
         }
     },
     plugins: [
@@ -62,4 +36,30 @@ module.exports = {
         }],
         ['@vuepress/medium-zoom', true]
       ],
+})
+
+// 获取当前目录,只有一级直接展示数组目录,二级目录需要分类展示,目前最多两级
+function getCatalog(catalog) {
+    let firstCatalog = [];
+    let secondCatalog = [];
+    fs.readdirSync(path.resolve(__dirname, `../${catalog}`)).forEach(dirname => {
+        if (dirname.toLocaleUpperCase().indexOf('README') < 0) {
+            firstCatalog.push([dirname + '/', dirname]);
+            // 判断二级目录有没有README.md文件,没有则是二级目录文件夹,需要继续遍历
+            if(fs.readdirSync(path.resolve(__dirname, `../${catalog}/${dirname}`)).includes('README.md')) {
+                //
+            } else {
+                let children = [];
+                fs.readdirSync(path.resolve(__dirname, `../${catalog}/${dirname}`)).forEach(filename => {
+                    children.push([`${dirname}/${filename}/`, filename]);
+                });
+                secondCatalog.push({
+                    title: dirname,
+                    collapsable: false,
+                    children
+                });
+            }
+        }
+    });
+    return secondCatalog.length > 0 ? secondCatalog : firstCatalog;
 }
