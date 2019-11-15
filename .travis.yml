@@ -1,0 +1,14 @@
+language: node_js
+
+install:
+  - npm install
+
+script:
+  - npm run docs:build
+
+after_script:
+  - cd ./docs/.vuepress/dist
+  - git init
+  - git add -A
+  - git commit -m 'deploy'
+  - git push -f git@github.com:Hertz9409/VuePressBlogHtml.git master
