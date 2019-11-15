@@ -2,10 +2,10 @@ language: node_js
 node_js: 12
 
 install:
-  - npm install
+  - yarn
 
 script:
-  - npm run docs:build
+  - yarn docs:build
 
 after_script:
   - cd ./docs/.vuepress/dist
