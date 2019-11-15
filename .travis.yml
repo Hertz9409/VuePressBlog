@@ -12,4 +12,4 @@ after_script:
   - git init
   - git add -A
   - git commit -m 'deploy'
-  - git push -f git@github.com:Hertz9409/VuePressBlogHtml.git master
+  - git push --force --quiet "https://${GITHUB_TOKEN}@github.com/Hertz9409/VuePressBlogHtml.git" master:master
