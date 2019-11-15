@@ -113,7 +113,7 @@ Person.prototype = {
 friend.sayName(); // error
 ```
 
-![重写原型对象后导致的构造函数与原型对象关系被切断](./image/2.png)
+![重写原型对象后导致的构造函数与原型对象关系被切断](./Image/2.png)
 
 ## 继承 -- 依靠原型链实现
 
@@ -131,7 +131,7 @@ var instance = new SubType();
 alert(instance.getSupervalue()); // true
 ```
 
-![原型链](./image/3.png)
+![原型链](./Image/3.png)
 
 原型链存在的问题: 
 
