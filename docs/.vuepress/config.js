@@ -1,5 +1,4 @@
 const { fs, path } = require('@vuepress/shared-utils')
-
 module.exports = () => ({
     title: "Hertz's Blog",
     description: "Hertz's Blog By VuePress",
@@ -37,7 +36,6 @@ module.exports = () => ({
         ['@vuepress/medium-zoom', true]
       ],
 })
-
 // 获取当前目录,只有一级直接展示数组目录,二级目录需要分类展示,目前最多两级
 function getCatalog(catalog) {
     let firstCatalog = [];
