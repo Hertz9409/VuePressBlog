@@ -105,13 +105,14 @@ Travis CI是最受欢迎的和GitHub配合使用的持续集成服务
 2. 配置.travis.yml,实现持续集成
 Travis要求项目根目录下必须有一个.travis.yml文件.这是一个配置文件,指定了Travis监听到仓库变化后的行为,一旦代码变化,Travis就会去找到仓库下的这个文件,执行其中的命令.
 ![我的.travis.yml配置](./Image/5.png)
+
 上图是一个很简单的配置信息,Travis提供了很多的配置功能,同时也提供了很多控制脚本执行过程的关键字,目前我只使用了`install`,`script`,`after_script`.
 
 travis支持多种语言,所以先要定义脚本执行语言.上图可以看出,我定义了脚本在nodejs 12版本的环境下运行,此时travis是支持yarn命令的.所以直接在install阶段执行`yarn`命令来安装各种依赖.
 
 在install阶段执行完成后,会执行script阶段,此时可以执行编译命令,最终在script阶段执行完成后,我们进行dist发布文件夹下,执行git上传命令将编译后的网页文件上传到github page仓库下,这时整个过程就完成了.
 
->>travis提供了deploy阶段,但是为了方便编写脚本,我这边就没有使用deploy钩子\
+>>travis提供了deploy阶段,但是为了方便编写脚本,我这边就没有使用deploy钩子
 
 >>仔细看脚本最后一行的上传代码,其中我们使用了`${GITHUB_TOKEN}`这个模板插值,这其实就涉及到github personal access tokens的配置.
 ![travis环境变量配置](./Image/6.png)
