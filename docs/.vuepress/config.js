@@ -15,6 +15,10 @@ module.exports = () => ({
                 link: '/BackEnd/'
             },
             {
+                text: 'GIS',
+                link: '/GIS/'
+            },
+            {
                 text: '其他',
                 link: '/Others/'
             },
@@ -24,6 +28,7 @@ module.exports = () => ({
         sidebar: {
             '/FrontEnd/': getCatalog('FrontEnd'),
             '/BackEnd/': getCatalog('BackEnd'),
+            '/GIS/': getCatalog('GIS'),
             '/Others/': getCatalog('Others')
         }
     },
