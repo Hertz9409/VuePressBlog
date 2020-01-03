@@ -238,3 +238,6 @@ alg属性表示签名算法,默认HMAC SHA256;typ属性表示令牌(token)类型
 
 ## 当关闭浏览器后,session就失效了?
 不对,由于session一般保存在cookie中,当关闭浏览器后,cookie清除,所以下次访问系统时需要创建新的session,给人造成关闭浏览器,session失效的错觉.所以服务器需要为session设置失效时间,当距离客户端上次使用session超过失效时间时,认为客户端停止活动,清除session.
+
+
+参考: [傻傻分不清之Cookie,Session,Token,JWT](https://juejin.im/post/5e055d9ef265da33997a42cc), [JSON Web Token 入门教程](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
