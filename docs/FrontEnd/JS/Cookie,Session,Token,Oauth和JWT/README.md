@@ -78,7 +78,7 @@ Session是一种基于cookie实现的另一种记录服务器和客户端会话�
 * Access Token有效期较短,当Access token因过期而失效时,使用Refresh Token可获取到新的token,如果Refresh Token也失效,那只能重新登陆
 * Refresh Token及过期时间存储在服务器数据库中,只有在申请新的Access token时才会验证,不会对业务接口响应时间造成影响,也不需要像Session一样一致保持在内存中
 
-![refresh-token验证流程](./Images/refresh-token流程图.png)
+![refresh-token验证流程](./Images/refresh-token.png)
 
 ## Token和Session区别
 
@@ -124,7 +124,7 @@ JWT是一种认证授权机制,是目前最流行的跨域认证解决方案,是
 
 ### JWT数据结构
 
-![JWT数据结构](./Images/jwt数据结构.jpg)
+![JWT数据结构](./Images/jwt.jpg)
 它是一个很长的字符串,中间使用`.`分隔成三部分: Header,Payload,Signature
 
 #### Header
