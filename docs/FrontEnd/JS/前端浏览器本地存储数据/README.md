@@ -1,0 +1,1 @@
+# 浏览器本地存储数据--Cookie,localstorage,sessionStorage,IndexedDB
