@@ -241,3 +241,39 @@ alg属性表示签名算法,默认HMAC SHA256;typ属性表示令牌(token)类型
 
 
 参考: [傻傻分不清之Cookie,Session,Token,JWT](https://juejin.im/post/5e055d9ef265da33997a42cc), [JSON Web Token 入门教程](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
+
+
+## 2020-04-01 更新 SameSite
+
+chrome80版本以后,google将浏览器SameSite属性从None改为了Lax,导致第三方cookie失效.
+
+### SameSite作用
+
+SameSite属性可以让cookie在跨站请求时不会被发送,从而阻止跨站请求伪造攻击(CSRF)
+
+### 属性值
+
+1. Strict 仅允许第一方请求携带cookie,即浏览器将只发送相同站点(当前网页url与请求目标url完全一致)请求的cookie
+2. Lax 允许部分第三方请求携带cookie
+3. none 无论是否跨站都会发送cookie
+
+`跨域是浏览器同源策略中的概念,同源策略要求两个url地址协议,主机名,端口一致,否则跨域.而跨站和同站概念对应,等价于第三方和第一方,只需要url地址的有效顶级域名和二级域名相同就行`
+
+### 改变
+
+|请求类型|实例|以前|Strict|Lax|None|
+|-|-|-|-|-|-|
+|链接|`<a href=''></a>`|发送cookie|不发送|发送cookie|发送cookie|
+|预加载|`<link rel='prerender' href=''/>`|发送cookie|不发送|发送cookie|发送cookie|
+|get表单|`<form method='GET' action=''>`|发送cookie|不发送|发送cookie|发送cookie|
+|post表单|`<form method='POST' action=''>`|发送cookie|不发送|不发送|发送cookie|
+|iframe|`<iframe src=''></iframe>`|发送cookie|不发送|不发送|发送cookie|
+|ajax|`$.get()`|发送cookie|不发送|不发送|发送cookie|
+|image|`<img src=''>`|发送cookie|不发送|不发送|发送cookie|
+
+### 解决方案
+
+后台传递cookie时将SameSite属性设置为None.
+`注意: chrome正在测试启用一个新的特性来保证cookie的安全,在SameSite设为none的情况下,必须添加Secure属性,即必须开启https特性.`
+
+最好的解决方案还是修改鉴权和用户标识方案,使用JWT来实现.JWT利用请求头的Authorization字段来传递信息.
