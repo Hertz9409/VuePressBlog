@@ -10,7 +10,7 @@
 
 我们从经典的爬楼梯问题开始讲起,leetcode上有这样一道[题目](https://leetcode-cn.com/problems/climbing-stairs/).
 
-![image-20200603164616104](.\images\image-20200603164616104.png)
+![image-20200603164616104](./images/image-20200603164616104.png)
 
 我们最先想到的就是暴力枚举,通过排列组合,列出所有的情况,但是这是最笨的办法.
 
