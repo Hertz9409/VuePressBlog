@@ -6,11 +6,11 @@
 > - 迭代器模式
 > - 生成器
 
-迭代的英文“iteration”源自拉丁文itero，意思是“重复”或“再来”。在软件开发领域，“迭代”的意思是按照顺序反复多次执行一段程序，通常会有明确的终止条件。ECMAScript 6规范新增了两个高级特性：迭代器和生成器。使用这两个特性，能够更清晰、高效、方便地实现迭代。
+迭代的英文“iteration”源自拉丁文 itero，意思是“重复”或“再来”。在软件开发领域，“迭代”的意思是按照顺序反复多次执行一段程序，通常会有明确的终止条件。ECMAScript 6 规范新增了两个高级特性：迭代器和生成器。使用这两个特性，能够更清晰、高效、方便地实现迭代。
 
-## 7.1　理解迭代
+## 7.1 　理解迭代
 
-在JavaScript中，计数循环就是一种最简单的迭代：
+在 JavaScript 中，计数循环就是一种最简单的迭代：
 
 ```
 for (let i = 1; i <= 10; ++i) {
@@ -20,7 +20,7 @@ for (let i = 1; i <= 10; ++i) {
 
 循环是迭代机制的基础，这是因为它可以指定迭代的次数，以及每次迭代要执行什么操作。每次循环都会在下一次迭代开始之前完成，而每次迭代的顺序都是事先定义好的。
 
-迭代会在一个有序集合上进行。（“有序”可以理解为集合中所有项都可以按照既定的顺序被遍历到，特别是开始和结束项有明确的定义。）数组是JavaScript中有序集合的最典型例子。
+迭代会在一个有序集合上进行。（“有序”可以理解为集合中所有项都可以按照既定的顺序被遍历到，特别是开始和结束项有明确的定义。）数组是 JavaScript 中有序集合的最典型例子。
 
 ```
 let collection = ['foo', 'bar', 'baz'];
@@ -37,7 +37,7 @@ for (let index = 0; index < collection.length; ++index) {
 - **迭代之前需要事先知道如何使用数据结构**。数组中的每一项都只能先通过引用取得数组对象，然后再通过`[]`操作符取得特定索引位置上的项。这种情况并不适用于所有数据结构。
 - **遍历顺序并不是数据结构固有的**。通过递增索引来访问数据是特定于数组类型的方式，并不适用于其他具有隐式顺序的数据结构。
 
-ES5新增了`Array.prototype.forEach()`方法，向通用迭代需求迈进了一步（但仍然不够理想）：
+ES5 新增了`Array.prototype.forEach()`方法，向通用迭代需求迈进了一步（但仍然不够理想）：
 
 ```
 let collection = ['foo', 'bar', 'baz'];
@@ -50,11 +50,11 @@ collection.forEach((item) => console.log(item));
 
 这个方法解决了单独记录索引和通过数组对象取得值的问题。不过，没有办法标识迭代何时终止。因此这个方法只适用于数组，而且回调结构也比较笨拙。
 
-在ECMAScript较早的版本中，执行迭代必须使用循环或其他辅助结构。随着代码量增加，代码会变得越发混乱。很多语言都通过原生语言结构解决了这个问题，开发者无须事先知道如何迭代就能实现迭代操作。这个解决方案就是**迭代器模式**。Python、Java、C++，还有其他很多语言都对这个模式提供了完备的支持。JavaScript在ECMAScript 6以后也支持了迭代器模式。
+在 ECMAScript 较早的版本中，执行迭代必须使用循环或其他辅助结构。随着代码量增加，代码会变得越发混乱。很多语言都通过原生语言结构解决了这个问题，开发者无须事先知道如何迭代就能实现迭代操作。这个解决方案就是**迭代器模式**。Python、Java、C++，还有其他很多语言都对这个模式提供了完备的支持。JavaScript 在 ECMAScript 6 以后也支持了迭代器模式。
 
-## 7.2　迭代器模式
+## 7.2 　迭代器模式
 
-**迭代器模式**（特别是在ECMAScript这个语境下）描述了一个方案，即可以把有些结构称为“可迭代对象”（iterable），因为它们实现了正式的`Iterable`接口，而且可以通过迭代器`Iterator`消费。
+**迭代器模式**（特别是在 ECMAScript 这个语境下）描述了一个方案，即可以把有些结构称为“可迭代对象”（iterable），因为它们实现了正式的`Iterable`接口，而且可以通过迭代器`Iterator`消费。
 
 可迭代对象是一种抽象的说法。基本上，可以把可迭代对象理解成数组或集合这样的集合类型的对象。它们包含的元素都是有限的，而且都具有无歧义的遍历顺序：
 
@@ -72,11 +72,11 @@ let set = new Set().add(3).add(1).add(4);
 
 > **注意**　临时性可迭代对象可以实现为生成器，本章后面会讨论。
 
-任何实现`Iterable`接口的数据结构都可以被实现`Iterator`接口的结构“消费”（consume）。**迭代器**（iterator）是按需创建的一次性对象。每个迭代器都会关联一个**可迭代对象**，而迭代器会暴露迭代其关联可迭代对象的API。迭代器无须了解与其关联的可迭代对象的结构，只需要知道如何取得连续的值。这种概念上的分离正是`Iterable`和`Iterator`的强大之处。
+任何实现`Iterable`接口的数据结构都可以被实现`Iterator`接口的结构“消费”（consume）。**迭代器**（iterator）是按需创建的一次性对象。每个迭代器都会关联一个**可迭代对象**，而迭代器会暴露迭代其关联可迭代对象的 API。迭代器无须了解与其关联的可迭代对象的结构，只需要知道如何取得连续的值。这种概念上的分离正是`Iterable`和`Iterator`的强大之处。
 
-### 7.2.1　可迭代协议
+### 7.2.1 　可迭代协议
 
-实现`Iterable`接口（可迭代协议）要求同时具备两种能力：支持迭代的自我识别能力和创建实现`Iterator`接口的对象的能力。在ECMAScript中，这意味着必须暴露一个属性作为“默认迭代器”，而且这个属性必须使用特殊的`Symbol.iterator`作为键。这个默认迭代器属性必须引用一个迭代器工厂函数，调用这个工厂函数必须返回一个新迭代器。
+实现`Iterable`接口（可迭代协议）要求同时具备两种能力：支持迭代的自我识别能力和创建实现`Iterator`接口的对象的能力。在 ECMAScript 中，这意味着必须暴露一个属性作为“默认迭代器”，而且这个属性必须使用特殊的`Symbol.iterator`作为键。这个默认迭代器属性必须引用一个迭代器工厂函数，调用这个工厂函数必须返回一个新迭代器。
 
 很多内置类型都实现了`Iterable`接口：
 
@@ -85,7 +85,7 @@ let set = new Set().add(3).add(1).add(4);
 - 映射
 - 集合
 - `arguments`对象
-- `NodeList`等DOM集合类型
+- `NodeList`等 DOM 集合类型
 
 检查是否存在默认迭代器属性可以暴露这个工厂函数：
 
@@ -180,9 +180,9 @@ for (let el of fooArr) {
 // baz
 ```
 
-### 7.2.2　迭代器协议
+### 7.2.2 　迭代器协议
 
-迭代器是一种一次性使用的对象，用于迭代与其关联的可迭代对象。迭代器API使用`next()`方法在可迭代对象中遍历数据。每次成功调用`next()`，都会返回一个`IteratorResult`对象，其中包含迭代器返回的下一个值。若不调用`next()`，则无法知道迭代器的当前位置。
+迭代器是一种一次性使用的对象，用于迭代与其关联的可迭代对象。迭代器 API 使用`next()`方法在可迭代对象中遍历数据。每次成功调用`next()`，都会返回一个`IteratorResult`对象，其中包含迭代器返回的下一个值。若不调用`next()`，则无法知道迭代器的当前位置。
 
 `next()`方法返回的迭代器对象`IteratorReault`包含两个属性：`done`和`value`。`done`是一个布尔值，表示是否还可以再次调用`next()`取得下一个值；`value`包含可迭代对象的下一个值（`done`为`false`），或者`undefined`（`done`为`true`）。`done: true`状态称为“耗尽”。可以通过以下简单的数组来演示：
 
@@ -274,7 +274,7 @@ let a = new Array();
 console.log(a[Symbol.iterator]()); // Array Iterator {}
 ```
 
-### 7.2.3　自定义迭代器
+### 7.2.3 　自定义迭代器
 
 与`Iterable`接口类似，任何实现`Iterator`接口的对象都可以作为迭代器使用。下面这个例子中的`Counter`类只能被迭代一定的次数：
 
@@ -386,7 +386,7 @@ for (let item of iter ) { console.log(item); }
 // 4
 ```
 
-### 7.2.4　提前终止迭代器
+### 7.2.4 　提前终止迭代器
 
 可选的`return()`方法用于指定在迭代器提前关闭时执行的逻辑。执行迭代的结构在想让迭代器知道它不想遍历到可迭代对象耗尽时，就可以“关闭”迭代器。可能的情况包括：
 
@@ -509,11 +509,11 @@ for (let i of iter) {
 // 5
 ```
 
-## 7.3　生成器
+## 7.3 　生成器
 
-生成器是ECMAScript 6新增的一个极为灵活的结构，拥有在一个函数块内暂停和恢复代码执行的能力。这种新能力具有深远的影响，比如，使用生成器可以自定义迭代器和实现协程。
+生成器是 ECMAScript 6 新增的一个极为灵活的结构，拥有在一个函数块内暂停和恢复代码执行的能力。这种新能力具有深远的影响，比如，使用生成器可以自定义迭代器和实现协程。
 
-### 7.3.1　生成器基础
+### 7.3.1 　生成器基础
 
 生成器的形式是一个函数，函数名称前面加一个星号（`*`）表示它是一个生成器。只要是可以定义函数的地方，就可以定义生成器。
 
@@ -625,7 +625,7 @@ console.log(g === g[Symbol.iterator]());
 // true
 ```
 
-### 7.3.2　通过`yield`中断执行
+### 7.3.2 　通过`yield`中断执行
 
 `yield`关键字可以让生成器停止和开始执行，也是生成器最有用的地方。生成器函数在遇到`yield`关键字之前会正常执行。遇到这个关键字后，执行会停止，函数作用域的状态会被保留。停止执行的生成器函数只能通过在生成器对象上调用`next()`方法来恢复执行：
 
@@ -715,7 +715,7 @@ function* invalidGeneratorFnC() {
      yield 2;
      yield 3;
    }
-   
+
    for (const x of generatorFn()) {
      console.log(x);
    }
@@ -732,7 +732,7 @@ function* invalidGeneratorFnC() {
        yield;
      }
    }
-   
+
    for (let _ of nTimes(3)) {
      console.log('foo');
    }
@@ -741,12 +741,9 @@ function* invalidGeneratorFnC() {
    // foo
    ```
 
-   传给生成器的函数可以控制迭代循环的次数。在`n`为0时，`while`条件为假，循环退出，生成器函数返回。
+   传给生成器的函数可以控制迭代循环的次数。在`n`为 0 时，`while`条件为假，循环退出，生成器函数返回。
 
-   
-    
-
-2. **使用yield实现输入和输出**
+2) **使用 yield 实现输入和输出**
 
    除了可以作为函数的中间返回语句使用，`yield`关键字还可以作为函数的中间参数使用。上一次让生成器函数暂停的`yield`关键字会接收到传给`next()`方法的第一个值。这里有个地方不太好理解——第一次调用`next()`传入的值不会被使用，因为这一次调用是为了开始执行生成器函数：
 
@@ -756,9 +753,9 @@ function* invalidGeneratorFnC() {
      console.log(yield);
      console.log(yield);
    }
-   
+
    let generatorObject = generatorFn('foo');
-   
+
    generatorObject.next('bar');  // foo
    generatorObject.next('baz');  // baz
    generatorObject.next('qux');  // qux
@@ -770,9 +767,9 @@ function* invalidGeneratorFnC() {
    function* generatorFn() {
      return yield 'foo';
    }
-   
+
    let generatorObject = generatorFn();
-   
+
    console.log(generatorObject.next());       // { done: false, value: 'foo' }
    console.log(generatorObject.next('bar'));  // { done: true, value: 'bar' }
    ```
@@ -787,9 +784,9 @@ function* invalidGeneratorFnC() {
        yield i;
      }
    }
-   
+
    let generatorObject = generatorFn();
-   
+
    console.log(generatorObject.next().value);  // 0
    console.log(generatorObject.next().value);  // 1
    console.log(generatorObject.next().value);  // 2
@@ -807,7 +804,7 @@ function* invalidGeneratorFnC() {
        yield i;
      }
    }
-   
+
    for (let x of nTimes(3)) {
      console.log(x);
    }
@@ -825,7 +822,7 @@ function* invalidGeneratorFnC() {
        yield i++;
      }
    }
-   
+
    for (let x of nTimes(3)) {
      console.log(x);
    }
@@ -842,24 +839,22 @@ function* invalidGeneratorFnC() {
        yield start++;
      }
    }
-   
+
    for (const x of range(4, 7)) {
      console.log(x);
    }
    // 4
    // 5
    // 6
-   
+
    function* zeroes(n) {
      while(n--) {
        yield 0;
      }
    }
-   
+
    console.log(Array.from(zeroes(8))); // [0, 0, 0, 0, 0, 0, 0, 0]
    ```
-
-    
 
 3. **产生可迭代对象**
 
@@ -875,9 +870,9 @@ function* invalidGeneratorFnC() {
    function* generatorFn() {
      yield* [1, 2, 3];
    }
-   
+
    let generatorObject = generatorFn();
-   
+
    for (const x of generatorFn()) {
      console.log(x);
    }
@@ -894,7 +889,7 @@ function* invalidGeneratorFnC() {
      yield *[3, 4];
      yield * [5, 6];
    }
-   
+
    for (const x of generatorFn()) {
      console.log(x);
    }
@@ -914,18 +909,18 @@ function* invalidGeneratorFnC() {
        yield x;
      }
    }
-   
+
    for (const x of generatorFnA()) {
      console.log(x);
    }
    // 1
    // 2
    // 3
-   
+
    function* generatorFnB() {
      yield* [1, 2, 3];
    }
-   
+
    for (const x of generatorFnB()) {
      console.log(x);
    }
@@ -940,7 +935,7 @@ function* invalidGeneratorFnC() {
    function* generatorFn() {
      console.log('iter value:', yield* [1, 2, 3]);
    }
-   
+
    for (const x of generatorFn()) {
      console.log('value:', x);
    }
@@ -960,7 +955,7 @@ function* invalidGeneratorFnC() {
    function* outerGeneratorFn(genObj) {
      console.log('iter value:', yield* innerGeneratorFn());
    }
-   
+
    for (const x of outerGeneratorFn()) {
      console.log('value:', x);
    }
@@ -968,9 +963,7 @@ function* invalidGeneratorFnC() {
    // iter value: bar
    ```
 
-    
-
-4. **使用yield\*实现递归算法**
+4) **使用 yield\*实现递归算法**
 
    `yield*`最有用的地方是实现递归操作，此时生成器可以产生自身。看下面的例子：
 
@@ -981,7 +974,7 @@ function* invalidGeneratorFnC() {
        yield n - 1;
      }
    }
-   
+
    for (const x of nTimes(3)) {
      console.log(x);
    }
@@ -1000,7 +993,7 @@ function* invalidGeneratorFnC() {
        this.id = id;
        this.neighbors = new Set();
      }
-   
+
      connect(node) {
        if (node !== this) {
          this.neighbors.add(node);
@@ -1008,16 +1001,16 @@ function* invalidGeneratorFnC() {
        }
      }
    }
-   
+
    class RandomGraph {
      constructor(size) {
        this.nodes = new Set();
-   
+
        // 创建节点
        for (let i = 0; i < size; ++i) {
          this.nodes.add(new Node(i));
        }
-   
+
        // 随机连接节点
        const threshold = 1 / size;
        for (const x of this.nodes) {
@@ -1028,21 +1021,21 @@ function* invalidGeneratorFnC() {
          }
        }
      }
-   
+
      // 这个方法仅用于调试
      print() {
        for (const node of this.nodes) {
          const ids = [...node.neighbors]
                          .map((n) => n.id)
                          .join(',');
-   
+
          console.log('${node.id}: ${ids}');
        }
      }
    }
-   
+
    const g = new RandomGraph(6);
-   
+
    g.print();
    // 示例输出：
    // 0: 2,3,5
@@ -1060,24 +1053,24 @@ function* invalidGeneratorFnC() {
      constructor(id) {
        ...
      }
-   
+
      connect(node) {
        ...
      }
    }
-   
+
    class RandomGraph {
      constructor(size) {
        ...
      }
-   
+
      print() {
        ...
      }
-   
+
      isConnected() {
        const visitedNodes = new Set();
-   
+
        function* traverse(nodes) {
          for (const node of nodes) {
            if (!visitedNodes.has(node)) {
@@ -1086,21 +1079,21 @@ function* invalidGeneratorFnC() {
            }
          }
        }
-   
+
        // 取得集合中的第一个节点
        const firstNode = this.nodes[Symbol.iterator]().next().value;
-   
+
        // 使用递归生成器迭代每个节点
        for (const node of traverse([firstNode])) {
          visitedNodes.add(node);
        }
-   
+
        return visitedNodes.size === this.nodes.size;
      }
    }
    ```
 
-### 7.3.3　生成器作为默认迭代器
+### 7.3.3 　生成器作为默认迭代器
 
 因为生成器对象实现了`Iterable`接口，而且生成器函数和默认迭代器被调用之后都产生迭代器，所以生成器格外适合作为默认迭代器。下面是一个简单的例子，这个类的默认迭代器可以用一行代码产出类的内容：
 
@@ -1125,7 +1118,7 @@ for (const x of f) {
 
 这里，`for-of`循环调用了默认迭代器（它恰好又是一个生成器函数）并产生了一个生成器对象。这个生成器对象是可迭代的，所以完全可以在迭代中使用。
 
-### 7.3.4　提前终止生成器
+### 7.3.4 　提前终止生成器
 
 与迭代器类似，生成器也支持“可关闭”的概念。一个实现`Iterator`接口的对象一定有`next()`方法，还有一个可选的`return()`方法用于提前终止迭代器。生成器对象除了有这两个方法，还有第三个方法：`throw()`。
 
@@ -1152,9 +1145,9 @@ console.log(g.throw);   // f throw() { [native code] }
        yield x;
      }
    }
-   
+
    const g = generatorFn();
-   
+
    console.log(g);            // generatorFn {<suspended>}
    console.log(g.return(4));  // { done: true, value: 4 }
    console.log(g);            // generatorFn {<closed>}
@@ -1168,9 +1161,9 @@ console.log(g.throw);   // f throw() { [native code] }
        yield x;
      }
    }
-   
+
    const g = generatorFn();
-   
+
    console.log(g.next());     // { done: false, value: 1 }
    console.log(g.return(4));  // { done: true, value: 4 }
    console.log(g.next());     // { done: true, value: undefined }
@@ -1186,9 +1179,9 @@ console.log(g.throw);   // f throw() { [native code] }
        yield x;
      }
    }
-   
+
    const g = generatorFn();
-   
+
    for (const x of g) {
      if (x > 1) {
        g.return(4);
@@ -1199,9 +1192,7 @@ console.log(g.throw);   // f throw() { [native code] }
    // 2
    ```
 
-    
-
-2. **throw()**
+2) **throw()**
 
    `throw()`方法会在暂停的时候将一个提供的错误注入到生成器对象中。如果错误未被处理，生成器就会关闭：
 
@@ -1211,9 +1202,9 @@ console.log(g.throw);   // f throw() { [native code] }
        yield x;
      }
    }
-   
+
    const g = generatorFn();
-   
+
    console.log(g);   // generatorFn {<suspended>}
    try {
      g.throw('foo');
@@ -1233,9 +1224,9 @@ console.log(g.throw);   // f throw() { [native code] }
        } catch(e) {}
      }
    }
-   
+
    const g = generatorFn();
-   
+
    console.log(g.next()); // { done: false, value: 1}
    g.throw('foo');
    console.log(g.next()); // { done: false, value: 3}
@@ -1245,9 +1236,9 @@ console.log(g.throw);   // f throw() { [native code] }
 
    > **注意**　如果生成器对象还没有开始执行，那么调用`throw()`抛出的错误不会在函数内部被捕获，因为这相当于在函数块外部抛出了错误。
 
-## 7.4　小结
+## 7.4 　小结
 
-迭代是一种所有编程语言中都可以看到的模式。ECMAScript 6正式支持迭代模式并引入了两个新的语言特性：迭代器和生成器。
+迭代是一种所有编程语言中都可以看到的模式。ECMAScript 6 正式支持迭代模式并引入了两个新的语言特性：迭代器和生成器。
 
 迭代器是一个可以由任意对象实现的接口，支持连续获取对象产出的每一个值。任何实现`Iterable`接口的对象都有一个`Symbol.iterator`属性，这个属性引用默认迭代器。默认迭代器就像一个迭代器工厂，也就是一个函数，调用之后会产生一个实现`Iterator`接口的对象。
 

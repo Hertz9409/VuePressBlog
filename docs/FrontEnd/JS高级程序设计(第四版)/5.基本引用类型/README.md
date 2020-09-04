@@ -3,10 +3,10 @@
 > **本章内容**
 >
 > - 理解对象
-> - 基本JavaScript数据类型
+> - 基本 JavaScript 数据类型
 > - 原始值与原始值包装类型
 
-引用值（或者对象）是某个特定**引用类型**的实例。在ECMAScript中，引用类型是把数据和功能组织到一起的结构，经常被人错误地称作“类”。虽然从技术上讲JavaScript是一门面向对象语言，但ECMAScript缺少传统的面向对象编程语言所具备的某些基本结构，包括类和接口。引用类型有时候也被称为**对象定义**，因为它们描述了自己的对象应有的属性和方法。
+引用值（或者对象）是某个特定**引用类型**的实例。在 ECMAScript 中，引用类型是把数据和功能组织到一起的结构，经常被人错误地称作“类”。虽然从技术上讲 JavaScript 是一门面向对象语言，但 ECMAScript 缺少传统的面向对象编程语言所具备的某些基本结构，包括类和接口。引用类型有时候也被称为**对象定义**，因为它们描述了自己的对象应有的属性和方法。
 
 > **注意**　引用类型虽然有点像类，但跟类并不是一个概念。为避免混淆，本章后面不会使用术语“类”。
 
@@ -16,13 +16,13 @@
 let now = new Date();
 ```
 
-这行代码创建了引用类型`Date`的一个新实例，并将它保存在变量`now`中。`Date()`在这里就是构造函数，它负责创建一个只有默认属性和方法的简单对象。ECMAScript提供了很多像`Date`这样的原生引用类型，帮助开发者实现常见的任务。
+这行代码创建了引用类型`Date`的一个新实例，并将它保存在变量`now`中。`Date()`在这里就是构造函数，它负责创建一个只有默认属性和方法的简单对象。ECMAScript 提供了很多像`Date`这样的原生引用类型，帮助开发者实现常见的任务。
 
-> **注意**　函数也是一种引用类型，但有关函数的内容太多了，一章放不下，所以本书专门用第10章来介绍函数。
+> **注意**　函数也是一种引用类型，但有关函数的内容太多了，一章放不下，所以本书专门用第 10 章来介绍函数。
 
-## 5.1　Date
+## 5.1 　 Date
 
-ECMAScript的`Date`类型参考了Java早期版本中的`java.util.Date`。为此，`Date`类型将日期保存为自协调世界时（UTC，Universal Time Coordinated）时间1970年1月1日午夜（零时）至今所经过的毫秒数。使用这种存储格式，`Date`类型可以精确表示1970年1月1日之前及之后285 616年的日期。
+ECMAScript 的`Date`类型参考了 Java 早期版本中的`java.util.Date`。为此，`Date`类型将日期保存为自协调世界时（UTC，Universal Time Coordinated）时间 1970 年 1 月 1 日午夜（零时）至今所经过的毫秒数。使用这种存储格式，`Date`类型可以精确表示 1970 年 1 月 1 日之前及之后 285 616 年的日期。
 
 要创建日期对象，就使用`new`操作符来调用`Date`构造函数：
 
@@ -30,16 +30,16 @@ ECMAScript的`Date`类型参考了Java早期版本中的`java.util.Date`。为�
 let now = new Date();
 ```
 
-在不给`Date`构造函数传参数的情况下，创建的对象将保存当前日期和时间。要基于其他日期和时间创建日期对象，必须传入其毫秒表示（UNIX纪元1970年1月1日午夜之后的毫秒数）。ECMAScript为此提供了两个辅助方法：`Date.parse()`和`Date.UTC()`。
+在不给`Date`构造函数传参数的情况下，创建的对象将保存当前日期和时间。要基于其他日期和时间创建日期对象，必须传入其毫秒表示（UNIX 纪元 1970 年 1 月 1 日午夜之后的毫秒数）。ECMAScript 为此提供了两个辅助方法：`Date.parse()`和`Date.UTC()`。
 
-`Date.parse()`方法接收一个表示日期的字符串参数，尝试将这个字符串转换为表示该日期的毫秒数。ECMA-262第5版定义了`Date.parse()`应该支持的日期格式，填充了第3版遗留的空白。所有实现都必须支持下列日期格式：
+`Date.parse()`方法接收一个表示日期的字符串参数，尝试将这个字符串转换为表示该日期的毫秒数。ECMA-262 第 5 版定义了`Date.parse()`应该支持的日期格式，填充了第 3 版遗留的空白。所有实现都必须支持下列日期格式：
 
 - “月/日/年”，如`"5/23/2019"`；
 - “月名 日, 年”，如`"May 23, 2019"`；
 - “周几 月名 日 年 时:分:秒 时区”，如`"Tue May 23 2019 00:00:00 GMT-0700"`；
-- ISO 8601扩展格式“YYYY-MM-DDTHH:mm:ss.sssZ”，如`2019-05-23T00:00:00`（只适用于兼容ES5的实现）。
+- ISO 8601 扩展格式“YYYY-MM-DDTHH:mm:ss.sssZ”，如`2019-05-23T00:00:00`（只适用于兼容 ES5 的实现）。
 
-比如，要创建一个表示“2019年5月23日”的日期对象，可以使用以下代码：
+比如，要创建一个表示“2019 年 5 月 23 日”的日期对象，可以使用以下代码：
 
 ```
 let someDate = new Date(Date.parse("May 23, 2019"));
@@ -53,9 +53,9 @@ let someDate = new Date("May 23, 2019");
 
 这两行代码得到的日期对象相同。
 
-> **注意**　不同的浏览器对`Date`类型的实现有很多问题。比如，很多浏览器会选择用当前日期替代越界的日期，因此有些浏览器会将`"January 32, 2019"`解释为`"February 1, 2019"`。Opera则会插入当前月的当前日，返回`"January 当前日, 2019"`。就是说，如果是在9月21日运行代码，会返回`"January 21, 2019"`。
+> **注意**　不同的浏览器对`Date`类型的实现有很多问题。比如，很多浏览器会选择用当前日期替代越界的日期，因此有些浏览器会将`"January 32, 2019"`解释为`"February 1, 2019"`。Opera 则会插入当前月的当前日，返回`"January 当前日, 2019"`。就是说，如果是在 9 月 21 日运行代码，会返回`"January 21, 2019"`。
 
-`Date.UTC()`方法也返回日期的毫秒表示，但使用的是跟`Date.parse()`不同的信息来生成这个值。传给`Date.UTC()`的参数是年、零起点月数（1月是0，2月是1，以此类推）、日（1~31）、时（0~23）、分、秒和毫秒。这些参数中，只有前两个（年和月）是必需的。如果不提供日，那么默认为1日。其他参数的默认值都是0。下面是使用`Date.UTC()`的两个例子：
+`Date.UTC()`方法也返回日期的毫秒表示，但使用的是跟`Date.parse()`不同的信息来生成这个值。传给`Date.UTC()`的参数是年、零起点月数（1 月是 0，2 月是 1，以此类推）、日（1~31）、时（0~23）、分、秒和毫秒。这些参数中，只有前两个（年和月）是必需的。如果不提供日，那么默认为 1 日。其他参数的默认值都是 0。下面是使用`Date.UTC()`的两个例子：
 
 ```
 // GMT时间2000年1月1日零点
@@ -65,9 +65,9 @@ let y2k = new Date(Date.UTC(2000, 0));
 let allFives = new Date(Date.UTC(2005, 4, 5, 17, 55, 55));
 ```
 
-这个例子创建了两个日期 。第一个日期是2000年1月1日零点（GMT），`2000`代表年，`0`代表月（1月）。因为没有其他参数（日取`1`，其他取`0`），所以结果就是该月第1天零点。第二个日期表示2005年5月5日下午5点55分55秒（GMT）。虽然日期里面涉及的都是5，但月数必须用`4`，因为月数是零起点的。小时也必须是17，因为这里采用的是24小时制，即取值范围是0~23。其他参数就都很直观了。
+这个例子创建了两个日期 。第一个日期是 2000 年 1 月 1 日零点（GMT），`2000`代表年，`0`代表月（1 月）。因为没有其他参数（日取`1`，其他取`0`），所以结果就是该月第 1 天零点。第二个日期表示 2005 年 5 月 5 日下午 5 点 55 分 55 秒（GMT）。虽然日期里面涉及的都是 5，但月数必须用`4`，因为月数是零起点的。小时也必须是 17，因为这里采用的是 24 小时制，即取值范围是 0~23。其他参数就都很直观了。
 
-与`Date.parse()`一样，`Date.UTC()`也会被`Date`构造函数隐式调用，但有一个区别：这种情况下创建的是本地日期，不是GMT日期。不过`Date`构造函数跟`Date.UTC()`接收的参数是一样的。因此，如果第一个参数是数值，则构造函数假设它是日期中的年，第二个参数就是月，以此类推。前面的例子也可以这样来写：
+与`Date.parse()`一样，`Date.UTC()`也会被`Date`构造函数隐式调用，但有一个区别：这种情况下创建的是本地日期，不是 GMT 日期。不过`Date`构造函数跟`Date.UTC()`接收的参数是一样的。因此，如果第一个参数是数值，则构造函数假设它是日期中的年，第二个参数就是月，以此类推。前面的例子也可以这样来写：
 
 ```
 // 本地时间2000年1月1日零点
@@ -79,7 +79,7 @@ let allFives = new Date(2005, 4, 5, 17, 55, 55);
 
 以上代码创建了与前面例子中相同的两个日期，但这次的两个日期是（由于系统设置决定的）本地时区的日期。
 
-ECMAScript还提供了`Date.now()`方法，返回表示方法执行时日期和时间的毫秒数。这个方法可以方便地用在代码分析中：
+ECMAScript 还提供了`Date.now()`方法，返回表示方法执行时日期和时间的毫秒数。这个方法可以方便地用在代码分析中：
 
 ```
 // 起始时间
@@ -93,9 +93,9 @@ let stop = Date.now(),
   result = stop - start;
 ```
 
-### 5.1.1　继承的方法
+### 5.1.1 　继承的方法
 
-与其他类型一样，`Date`类型重写了`toLocaleString()`、`toString()`和`valueOf()`方法。但与其他类型不同，重写后这些方法的返回值不一样。`Date`类型的`toLocaleString()`方法返回与浏览器运行的本地环境一致的日期和时间。这通常意味着格式中包含针对时间的AM（上午）或PM（下午），但不包含时区信息（具体格式可能因浏览器而不同）。`toString()`方法通常返回带时区信息的日期和时间，而时间也是以24小时制（0~23）表示的。下面给出了`toLocaleString()`和`toString()`返回的2019年2月1日零点的示例（地区为`"en-US"`的PST，即Pacific Standard Time，太平洋标准时间）：
+与其他类型一样，`Date`类型重写了`toLocaleString()`、`toString()`和`valueOf()`方法。但与其他类型不同，重写后这些方法的返回值不一样。`Date`类型的`toLocaleString()`方法返回与浏览器运行的本地环境一致的日期和时间。这通常意味着格式中包含针对时间的 AM（上午）或 PM（下午），但不包含时区信息（具体格式可能因浏览器而不同）。`toString()`方法通常返回带时区信息的日期和时间，而时间也是以 24 小时制（0~23）表示的。下面给出了`toLocaleString()`和`toString()`返回的 2019 年 2 月 1 日零点的示例（地区为`"en-US"`的 PST，即 Pacific Standard Time，太平洋标准时间）：
 
 ```
 toLocaleString() - 2/1/2019 12:00:00 AM
@@ -115,9 +115,9 @@ console.log(date1 < date2); // true
 console.log(date1 > date2); // false
 ```
 
-日期2019年1月1日在2019年2月1日之前，所以说前者小于后者没问题。因为2019年1月1日的毫秒表示小于2019年2月1日的毫秒表示，所以用小于号比较这两个日期时会返回`true`。这也是确保日期先后的一个简单方式。
+日期 2019 年 1 月 1 日在 2019 年 2 月 1 日之前，所以说前者小于后者没问题。因为 2019 年 1 月 1 日的毫秒表示小于 2019 年 2 月 1 日的毫秒表示，所以用小于号比较这两个日期时会返回`true`。这也是确保日期先后的一个简单方式。
 
-### 5.1.2　日期格式化方法
+### 5.1.2 　日期格式化方法
 
 `Date`类型有几个专门用于格式化日期的方法，它们都会返回字符串：
 
@@ -125,55 +125,55 @@ console.log(date1 > date2); // false
 - `toTimeString()`显示日期中的时、分、秒和时区（格式特定于实现）；
 - `toLocaleDateString()`显示日期中的周几、月、日、年（格式特定于实现和地区）；
 - `toLocaleTimeString()`显示日期中的时、分、秒（格式特定于实现）；
-- `toUTCString()`显示完整的UTC日期（格式特定于实现）。
+- `toUTCString()`显示完整的 UTC 日期（格式特定于实现）。
 
 这些方法的输出与`toLocaleString()`和`toString()`一样，会因浏览器而异。因此不能用于在用户界面上一致地显示日期。
 
 > **注意**　还有一个方法叫`toGMTString()`，这个方法跟`toUTCString()`是一样的，目的是为了向后兼容。不过，规范建议新代码使用`toUTCString()`。
 
-### 5.1.3　日期/时间组件方法
+### 5.1.3 　日期/时间组件方法
 
-`Date`类型剩下的方法（见下表）直接涉及取得或设置日期值的特定部分。注意表中“UTC日期”，指的是没有时区偏移（将日期转换为GMT）时的日期。
+`Date`类型剩下的方法（见下表）直接涉及取得或设置日期值的特定部分。注意表中“UTC 日期”，指的是没有时区偏移（将日期转换为 GMT）时的日期。
 
-| 方法                                 | 说明                                                         |
-| :----------------------------------- | :----------------------------------------------------------- |
-| `getTime()`                          | 返回日期的毫秒表示；与`valueOf()`相同                        |
-| `setTime(*milliseconds*)`            | 设置日期的毫秒表示，从而修改整个日期                         |
-| `getFullYear()`                      | 返回4位数年（即2019而不是19）                                |
-| `getUTCFullYear()`                   | 返回UTC日期的4位数年                                         |
-| `setFullYear(*year*)`                | 设置日期的年（`*year*`必须是4位数）                          |
-| `setUTCFullYear(*year*)`             | 设置UTC日期的年（`*year*`必须是4位数）                       |
-| `getMonth()`                         | 返回日期的月（0表示1月，11表示12月）                         |
-| `getUTCMonth()`                      | 返回UTC日期的月（0表示1月，11表示12月）                      |
-| `setMonth(*month*)`                  | 设置日期的月（`*month*`为大于0的数值，大于11加年）           |
-| `setUTCMonth(*month*)`               | 设置UTC日期的月（`*month*`为大于0的数值，大于11加年）        |
-| `getDate()`                          | 返回日期中的日（1~31）                                       |
-| `getUTCDate()`                       | 返回UTC日期中的日（1~31）                                    |
-| `setDate(*date*)`                    | 设置日期中的日（如果`*date*`大于该月天数，则加月）           |
-| `setUTCDate(*date*)`                 | 设置UTC日期中的日（如果`*date*`大于该月天数，则加月）        |
-| `getDay()`                           | 返回日期中表示周几的数值（0表示周日，6表示周六）             |
-| `getUTCDay()`                        | 返回UTC日期中表示周几的数值（0表示周日，6表示周六）          |
-| `getHours()`                         | 返回日期中的时（0~23）                                       |
-| `getUTCHours()`                      | 返回UTC日期中的时（0~23）                                    |
-| `setHours(*hours*)`                  | 设置日期中的时（如果`*hours*`大于23，则加日）                |
-| `setUTCHours(*hours*)`               | 设置UTC日期中的时（如果`*hours*`大于23，则加日）             |
-| `getMinutes()`                       | 返回日期中的分（0~59）                                       |
-| `getUTCMinutes()`                    | 返回UTC日期中的分（0~59）                                    |
-| `setMinutes(*minutes*)`              | 设置日期中的分（如果`*minutes*`大于59，则加时）              |
-| `setUTCMinutes(*minutes*)`           | 设置UTC日期中的分（如果`*minutes*`大于59，则加时）           |
-| `getSeconds()`                       | 返回日期中的秒（0~59）                                       |
-| `getUTCSeconds()`                    | 返回UTC日期中的秒（0~59）                                    |
-| `setSeconds(*seconds*)`              | 设置日期中的秒（如果`*seconds*`大于59，则加分）              |
-| `setUTCSeconds(*seconds*)`           | 设置UTC日期中的秒（如果`*seconds*`大于59，则加分）           |
-| `getMilliseconds()`                  | 返回日期中的毫秒                                             |
-| `getUTCMilliseconds()`               | 返回UTC日期中的毫秒                                          |
-| `setMilliseconds(*milliseconds*)`    | 设置日期中的毫秒                                             |
-| `setUTCMilliseconds(*milliseconds*)` | 设置UTC日期中的毫秒                                          |
-| `getTimezoneOffset()`                | 返回以分钟计的UTC与本地时区的偏移量（如美国EST即“东部标准时间”返回300，进入夏令时的地区可能有所差异） |
+| 方法                                 | 说明                                                                                                       |
+| :----------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| `getTime()`                          | 返回日期的毫秒表示；与`valueOf()`相同                                                                      |
+| `setTime(*milliseconds*)`            | 设置日期的毫秒表示，从而修改整个日期                                                                       |
+| `getFullYear()`                      | 返回 4 位数年（即 2019 而不是 19）                                                                         |
+| `getUTCFullYear()`                   | 返回 UTC 日期的 4 位数年                                                                                   |
+| `setFullYear(*year*)`                | 设置日期的年（`*year*`必须是 4 位数）                                                                      |
+| `setUTCFullYear(*year*)`             | 设置 UTC 日期的年（`*year*`必须是 4 位数）                                                                 |
+| `getMonth()`                         | 返回日期的月（0 表示 1 月，11 表示 12 月）                                                                 |
+| `getUTCMonth()`                      | 返回 UTC 日期的月（0 表示 1 月，11 表示 12 月）                                                            |
+| `setMonth(*month*)`                  | 设置日期的月（`*month*`为大于 0 的数值，大于 11 加年）                                                     |
+| `setUTCMonth(*month*)`               | 设置 UTC 日期的月（`*month*`为大于 0 的数值，大于 11 加年）                                                |
+| `getDate()`                          | 返回日期中的日（1~31）                                                                                     |
+| `getUTCDate()`                       | 返回 UTC 日期中的日（1~31）                                                                                |
+| `setDate(*date*)`                    | 设置日期中的日（如果`*date*`大于该月天数，则加月）                                                         |
+| `setUTCDate(*date*)`                 | 设置 UTC 日期中的日（如果`*date*`大于该月天数，则加月）                                                    |
+| `getDay()`                           | 返回日期中表示周几的数值（0 表示周日，6 表示周六）                                                         |
+| `getUTCDay()`                        | 返回 UTC 日期中表示周几的数值（0 表示周日，6 表示周六）                                                    |
+| `getHours()`                         | 返回日期中的时（0~23）                                                                                     |
+| `getUTCHours()`                      | 返回 UTC 日期中的时（0~23）                                                                                |
+| `setHours(*hours*)`                  | 设置日期中的时（如果`*hours*`大于 23，则加日）                                                             |
+| `setUTCHours(*hours*)`               | 设置 UTC 日期中的时（如果`*hours*`大于 23，则加日）                                                        |
+| `getMinutes()`                       | 返回日期中的分（0~59）                                                                                     |
+| `getUTCMinutes()`                    | 返回 UTC 日期中的分（0~59）                                                                                |
+| `setMinutes(*minutes*)`              | 设置日期中的分（如果`*minutes*`大于 59，则加时）                                                           |
+| `setUTCMinutes(*minutes*)`           | 设置 UTC 日期中的分（如果`*minutes*`大于 59，则加时）                                                      |
+| `getSeconds()`                       | 返回日期中的秒（0~59）                                                                                     |
+| `getUTCSeconds()`                    | 返回 UTC 日期中的秒（0~59）                                                                                |
+| `setSeconds(*seconds*)`              | 设置日期中的秒（如果`*seconds*`大于 59，则加分）                                                           |
+| `setUTCSeconds(*seconds*)`           | 设置 UTC 日期中的秒（如果`*seconds*`大于 59，则加分）                                                      |
+| `getMilliseconds()`                  | 返回日期中的毫秒                                                                                           |
+| `getUTCMilliseconds()`               | 返回 UTC 日期中的毫秒                                                                                      |
+| `setMilliseconds(*milliseconds*)`    | 设置日期中的毫秒                                                                                           |
+| `setUTCMilliseconds(*milliseconds*)` | 设置 UTC 日期中的毫秒                                                                                      |
+| `getTimezoneOffset()`                | 返回以分钟计的 UTC 与本地时区的偏移量（如美国 EST 即“东部标准时间”返回 300，进入夏令时的地区可能有所差异） |
 
-## 5.2　RegExp
+## 5.2 　 RegExp
 
-ECMAScript通过`RegExp`类型支持正则表达式。正则表达式使用类似Perl的简洁语法来创建：
+ECMAScript 通过`RegExp`类型支持正则表达式。正则表达式使用类似 Perl 的简洁语法来创建：
 
 ```
 let expression = /pattern/flags;
@@ -185,7 +185,7 @@ let expression = /pattern/flags;
 - `i`：不区分大小写，表示在查找匹配时忽略`pattern`和字符串的大小写。
 - `m`：多行模式，表示查找到一行文本末尾时会继续查找。
 - `y`：粘附模式，表示只查找从`lastIndex`开始及之后的字符串。
-- `u`：Unicode模式，启用Unicode匹配。
+- `u`：Unicode 模式，启用 Unicode 匹配。
 - `s`：`dotAll`模式，表示元字符`.`匹配任何字符（包括`\n`或`\r`）。
 
 使用不同模式和标记可以创建出各种正则表达式，比如：
@@ -258,7 +258,7 @@ const re3 = new RegExp(re1, "i");
 console.log(re3);  // "/cat/i"
 ```
 
-### 5.2.1　`RegExp`实例属性
+### 5.2.1 　`RegExp`实例属性
 
 每个`RegExp`实例都有下列属性，提供有关模式的各方面信息。
 
@@ -266,7 +266,7 @@ console.log(re3);  // "/cat/i"
 - `ignoreCase`：布尔值，表示是否设置了`i`标记。
 - `unicode`：布尔值，表示是否设置了`u`标记。
 - `sticky`：布尔值，表示是否设置了`y`标记。
-- `lastIndex`：整数，表示在源字符串中下一次搜索的开始位置，始终从0开始。
+- `lastIndex`：整数，表示在源字符串中下一次搜索的开始位置，始终从 0 开始。
 - `multiline`：布尔值，表示是否设置了`m`标记。
 - `dotAll`：布尔值，表示是否设置了`s`标记。
 - `source`：正则表达式的字面量字符串（不是传给构造函数的模式字符串），没有开头和结尾的斜杠。
@@ -296,7 +296,7 @@ console.log(pattern2.flags);       // "i"
 
 注意，虽然第一个模式是通过字面量创建的，第二个模式是通过`RegExp`构造函数创建的，但两个模式的`source`和`flags`属性是相同的。`source`和`flags`属性返回的是规范化之后可以在字面量中使用的形式。
 
-### 5.2.2　`RegExp`实例方法
+### 5.2.2 　`RegExp`实例方法
 
 `RegExp`实例的主要方法是`exec()`，主要用于配合捕获组使用。这个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，则返回包含第一个匹配信息的数组；如果没找到匹配项，则返回`null`。返回的数组虽然是`Array`的实例，但包含两个额外的属性：`index`和`input`。`index`是字符串中匹配模式的起始位置，`input`是要查找的字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个元素。来看下面的例子：
 
@@ -312,7 +312,7 @@ console.log(matches[1]);      // " and dad and baby"
 console.log(matches[2]);      // " and baby"
 ```
 
-在这个例子中，模式包含两个捕获组：最内部的匹配项`" and baby"`，以及外部的匹配项`" and dad"`或`" and dad and baby"`。调用`exec()`后找到了一个匹配项。因为整个字符串匹配模式，所以`matchs`数组的`index`属性就是0。数组的第一个元素是匹配的整个字符串，第二个元素是匹配第一个捕获组的字符串，第三个元素是匹配第二个捕获组的字符串。
+在这个例子中，模式包含两个捕获组：最内部的匹配项`" and baby"`，以及外部的匹配项`" and dad"`或`" and dad and baby"`。调用`exec()`后找到了一个匹配项。因为整个字符串匹配模式，所以`matchs`数组的`index`属性就是 0。数组的第一个元素是匹配的整个字符串，第二个元素是匹配第一个捕获组的字符串，第三个元素是匹配第二个捕获组的字符串。
 
 如果模式设置了全局标记，则每次调用`exec()`方法会返回一个匹配的信息。如果没有设置全局标记，则无论对同一个字符串调用多少次`exec()`，也只会返回第一个匹配的信息。
 
@@ -406,17 +406,17 @@ console.log(pattern.toLocaleString()); // /\[bc\]at/gi
 
 > **注意**　正则表达式的`valueOf()`方法返回正则表达式本身。
 
-### 5.2.3　`RegExp`构造函数属性
+### 5.2.3 　`RegExp`构造函数属性
 
 `RegExp`构造函数本身也有几个属性。（在其他语言中，这种属性被称为静态属性。）这些属性适用于作用域中的所有正则表达式，而且会根据最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过两种不同的方式访问它们。换句话说，每个属性都有一个全名和一个简写。下表列出了`RegExp`构造函数的属性。
 
-| 全名           | 简写 | 说明                                       |
-| :------------- | :--- | :----------------------------------------- |
-| `input`        | `$_` | 最后搜索的字符串                           |
-| `lastMatch`    | `$&` | 最后匹配的文本                             |
-| `lastParen`    | `$+` | 最后匹配的捕获组                           |
-| `leftContext`  | `$`` | `input`字符串中出现在`lastMatch`前面的文本 |
-| `rightContext` | `$'` | `input`字符串中出现在`lastMatch`后面的文本 |
+| 全名           | 简写  | 说明                                       |
+| :------------- | :---- | :----------------------------------------- |
+| `input`        | `$_`  | 最后搜索的字符串                           |
+| `lastMatch`    | `$&`  | 最后匹配的文本                             |
+| `lastParen`    | `$+`  | 最后匹配的捕获组                           |
+| `leftContext`  | `\$`` | `input`字符串中出现在`lastMatch`前面的文本 |
+| `rightContext` | `$'`  | `input`字符串中出现在`lastMatch`后面的文本 |
 
 通过这些属性可以提取出与`exec()`和`test()`执行的操作相关的信息。来看下面的例子：
 
@@ -440,7 +440,7 @@ if (pattern.test(text)) {
 - `lastMatch`属性包含匹配整个正则表达式的上一个字符串，即`"short"`。
 - `lastParen`属性包含捕获组的上一次匹配，即`"s"`。
 
-这些属性名也可以替换成简写形式，只不过要使用中括号语法来访问，如下面的例子所示，因为大多数简写形式都不是合法的ECMAScript标识符：
+这些属性名也可以替换成简写形式，只不过要使用中括号语法来访问，如下面的例子所示，因为大多数简写形式都不是合法的 ECMAScript 标识符：
 
 ```
 let text = "this has been a short summer";
@@ -460,7 +460,7 @@ if (pattern.test(text)) {
 }
 ```
 
-`RegExp`还有其他几个构造函数属性，可以存储最多9个捕获组的匹配项。这些属性通过`RegExp.$1~RegExp.$9`来访问，分别包含第1~9个捕获组的匹配项。在调用`exec()`或`test()`时，这些属性就会被填充，然后就可以像下面这样使用它们：
+`RegExp`还有其他几个构造函数属性，可以存储最多 9 个捕获组的匹配项。这些属性通过`RegExp.$1~RegExp.$9`来访问，分别包含第 1~9 个捕获组的匹配项。在调用`exec()`或`test()`时，这些属性就会被填充，然后就可以像下面这样使用它们：
 
 ```
 let text = "this has been a short summer";
@@ -474,11 +474,11 @@ if (pattern.test(text)) {
 
 在这个例子中，模式包含两个捕获组。调用`test()`搜索字符串之后，因为找到了匹配项所以返回`true`，而且可以打印出通过`RegExp`构造函数的`$1`和`$2`属性取得的两个捕获组匹配的内容。
 
-> **注意**　`RegExp`构造函数的所有属性都没有任何Web标准出处，因此不要在生产环境中使用它们。
+> **注意**　`RegExp`构造函数的所有属性都没有任何 Web 标准出处，因此不要在生产环境中使用它们。
 
-### 5.2.4　模式局限
+### 5.2.4 　模式局限
 
-虽然ECMAScript对正则表达式的支持有了长足的进步，但仍然缺少Perl语言中的一些高级特性。下列特性目前还没有得到ECMAScript的支持（想要了解更多信息，可以参考Regular-Expressions.info网站）：
+虽然 ECMAScript 对正则表达式的支持有了长足的进步，但仍然缺少 Perl 语言中的一些高级特性。下列特性目前还没有得到 ECMAScript 的支持（想要了解更多信息，可以参考 Regular-Expressions.info 网站）：
 
 - `\A`和`\Z`锚（分别匹配字符串的开始和末尾）
 - 联合及交叉类
@@ -487,18 +487,18 @@ if (pattern.test(text)) {
 - 条件式匹配
 - 正则表达式注释
 
-虽然还有这些局限，但ECMAScript的正则表达式已经非常强大，可以用于大多数模式匹配任务。
+虽然还有这些局限，但 ECMAScript 的正则表达式已经非常强大，可以用于大多数模式匹配任务。
 
-## 5.3　原始值包装类型
+## 5.3 　原始值包装类型
 
-为了方便操作原始值，ECMAScript提供了3种特殊的引用类型：`Boolean`、`Number`和`String`。这些类型具有本章介绍的其他引用类型一样的特点，但也具有与各自原始类型对应的特殊行为。每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，从而暴露出操作原始值的各种方法。来看下面的例子：
+为了方便操作原始值，ECMAScript 提供了 3 种特殊的引用类型：`Boolean`、`Number`和`String`。这些类型具有本章介绍的其他引用类型一样的特点，但也具有与各自原始类型对应的特殊行为。每当用到某个原始值的方法或属性时，后台都会创建一个相应原始包装类型的对象，从而暴露出操作原始值的各种方法。来看下面的例子：
 
 ```
 let s1 = "some text";
 let s2 = s1.substring(2);
 ```
 
-在这里，`s1`是一个包含字符串的变量，它是一个原始值。第二行紧接着在`s1`上调用了`substring()`方法，并把结果保存在`s2`中。我们知道，原始值本身不是对象，因此逻辑上不应该有方法。而实际上这个例子又确实按照预期运行了。这是因为后台进行了很多处理，从而实现了上述操作。具体来说，当第二行访问`s1`时，是以读模式访问的，也就是要从内存中读取变量保存的值。在以读模式访问字符串值的任何时候，后台都会执行以下3步：
+在这里，`s1`是一个包含字符串的变量，它是一个原始值。第二行紧接着在`s1`上调用了`substring()`方法，并把结果保存在`s2`中。我们知道，原始值本身不是对象，因此逻辑上不应该有方法。而实际上这个例子又确实按照预期运行了。这是因为后台进行了很多处理，从而实现了上述操作。具体来说，当第二行访问`s1`时，是以读模式访问的，也就是要从内存中读取变量保存的值。在以读模式访问字符串值的任何时候，后台都会执行以下 3 步：
 
 (1) 创建一个`String`类型的实例；
 
@@ -506,7 +506,7 @@ let s2 = s1.substring(2);
 
 (3) 销毁实例。
 
-可以把这3步想象成执行了如下3行ECMAScript代码：
+可以把这 3 步想象成执行了如下 3 行 ECMAScript 代码：
 
 ```
 let s1 = new String("some text");
@@ -514,7 +514,7 @@ let s2 = s1.substring(2);
 s1 = null;
 ```
 
-这种行为可以让原始值拥有对象的行为。对布尔值和数值而言，以上3步也会在后台发生，只不过使用的是`Boolean`和`Number`包装类型而已。
+这种行为可以让原始值拥有对象的行为。对布尔值和数值而言，以上 3 步也会在后台发生，只不过使用的是`Boolean`和`Number`包装类型而已。
 
 引用类型与原始值包装类型的主要区别在于对象的生命周期。在通过`new`实例化引用类型后，得到的实例会在离开作用域时被销毁，而自动创建的原始值包装对象则只存在于访问它的那行代码执行期间。这意味着不能在运行时给原始值添加属性和方法。比如下面的例子：
 
@@ -547,11 +547,11 @@ let obj = new Number(value);   // 构造函数
 console.log(typeof obj);       // "object"
 ```
 
-在这个例子中，变量`number`中保存的是一个值为25的原始数值，而变量`obj`中保存的是一个`Number`的实例。
+在这个例子中，变量`number`中保存的是一个值为 25 的原始数值，而变量`obj`中保存的是一个`Number`的实例。
 
 虽然不推荐显式创建原始值包装类型的实例，但它们对于操作原始值的功能是很重要的。每个原始值包装类型都有相应的一套方法来方便数据操作。
 
-### 5.3.1　`Boolean`
+### 5.3.1 　`Boolean`
 
 `Boolean`是对应布尔值的引用类型。要创建一个`Boolean`对象，就使用`Boolean`构造函数并传入`true`或`false`，如下例所示：
 
@@ -559,7 +559,7 @@ console.log(typeof obj);       // "object"
 let booleanObject = new Boolean(true);
 ```
 
-`Boolean`的实例会重写`valueOf()`方法，返回一个原始值`true`或`false`。`toString()`方法被调用时也会被覆盖，返回字符串`"true"`或`"false"`。不过，`Boolean`对象在ECMAScript中用得很少。不仅如此，它们还容易引起误会，尤其是在布尔表达式中使用`Boolean`对象时，比如：
+`Boolean`的实例会重写`valueOf()`方法，返回一个原始值`true`或`false`。`toString()`方法被调用时也会被覆盖，返回字符串`"true"`或`"false"`。不过，`Boolean`对象在 ECMAScript 中用得很少。不仅如此，它们还容易引起误会，尤其是在布尔表达式中使用`Boolean`对象时，比如：
 
 ```
 let falseObject = new Boolean(false);
@@ -584,7 +584,7 @@ console.log(falseValue instanceof Boolean);  // false
 
 理解原始布尔值和`Boolean`对象之间的区别非常重要，强烈建议永远不要使用后者。
 
-### 5.3.2　`Number`
+### 5.3.2 　`Number`
 
 `Number`是对应数值的引用类型。要创建一个`Number`对象，就使用`Number`构造函数并传入一个数值，如下例所示：
 
@@ -612,7 +612,7 @@ let num = 10;
 console.log(num.toFixed(2)); // "10.00"
 ```
 
-这里的`toFixed()`方法接收了参数`2`，表示返回的数值字符串要包含两位小数。结果返回值为`"10.00"`，小数位填充了0。如果数值本身的小数位超过了参数指定的位数，则四舍五入到最接近的小数位：
+这里的`toFixed()`方法接收了参数`2`，表示返回的数值字符串要包含两位小数。结果返回值为`"10.00"`，小数位填充了 0。如果数值本身的小数位超过了参数指定的位数，则四舍五入到最接近的小数位：
 
 ```
 let num = 10.005;
@@ -621,7 +621,7 @@ console.log(num.toFixed(2)); // "10.01"
 
 `toFixed()`自动舍入的特点可以用于处理货币。不过要注意的是，多个浮点数值的数学计算不一定得到精确的结果。比如，`0.1 + 0.2 = 0.30000000000000004`。
 
-> **注意**　`toFixed()`方法可以表示有0~20个小数位的数值。某些浏览器可能支持更大的范围，但这是通常被支持的范围。
+> **注意**　`toFixed()`方法可以表示有 0~20 个小数位的数值。某些浏览器可能支持更大的范围，但这是通常被支持的范围。
 
 另一个用于格式化数值的方法是`toExponential()`，返回以科学记数法（也称为指数记数法）表示的数值字符串。与`toFixed()`一样，`toExponential()`也接收一个参数，表示结果中小数的位数。来看下面的例子：
 
@@ -641,9 +641,9 @@ console.log(num.toPrecision(2)); // "99"
 console.log(num.toPrecision(3)); // "99.0"
 ```
 
-在这个例子中，首先要用1位数字表示数值99，得到`"1e+2"`，也就是100。因为99不能只用1位数字来精确表示，所以这个方法就将它舍入为100，这样就可以只用1位数字（及其科学记数法形式）来表示了。用2位数字表示99得到`"99"`，用3位数字则是`"99.0"`。本质上，`toPrecision()`方法会根据数值和精度来决定调用`toFixed()`还是`toExponential()`。为了以正确的小数位精确表示数值，这3个方法都会向上或向下舍入。
+在这个例子中，首先要用 1 位数字表示数值 99，得到`"1e+2"`，也就是 100。因为 99 不能只用 1 位数字来精确表示，所以这个方法就将它舍入为 100，这样就可以只用 1 位数字（及其科学记数法形式）来表示了。用 2 位数字表示 99 得到`"99"`，用 3 位数字则是`"99.0"`。本质上，`toPrecision()`方法会根据数值和精度来决定调用`toFixed()`还是`toExponential()`。为了以正确的小数位精确表示数值，这 3 个方法都会向上或向下舍入。
 
-> **注意**　`toPrecision()`方法可以表示带1~21个小数位的数值。某些浏览器可能支持更大的范围，但这是通常被支持的范围。
+> **注意**　`toPrecision()`方法可以表示带 1~21 个小数位的数值。某些浏览器可能支持更大的范围，但这是通常被支持的范围。
 
 与`Boolean`对象类似，`Number`对象也为数值提供了重要能力。但是，考虑到两者存在同样的潜在问题，因此并不建议直接实例化`Number`对象。在处理原始数值和引用数值时，`typeof`和`instacnceof`操作符会返回不同的结果，如下所示：
 
@@ -660,7 +660,7 @@ console.log(numberValue instanceof Number);   // false
 
 **isInteger()方法与安全整数**
 
-ES6新增了`Number.isInteger()`方法，用于辨别一个数值是否保存为整数。有时候，小数位的0可能会让人误以为数值是一个浮点值：
+ES6 新增了`Number.isInteger()`方法，用于辨别一个数值是否保存为整数。有时候，小数位的 0 可能会让人误以为数值是一个浮点值：
 
 ```
 console.log(Number.isInteger(1));    // true
@@ -668,7 +668,7 @@ console.log(Number.isInteger(1.00)); // true
 console.log(Number.isInteger(1.01)); // false
 ```
 
-IEEE 754数值格式有一个特殊的数值范围，在这个范围内二进制值可以表示一个整数值。这个数值范围从`Number.MIN_SAFE_INTEGER`（![-2^{53}+1](https://private.codecogs.com/gif.latex?-2^{53}+1)）到`Number.MAX_SAFE_INTEGER`（![2^{53}-1](https://private.codecogs.com/gif.latex?2^{53}-1)）。对超出这个范围的数值，即使尝试保存为整数，IEEE 754编码格式也意味着二进制值可能会表示一个完全不同的数值。为了鉴别整数是否在这个范围内，可以使用`Number.isSafeInteger()`方法：
+IEEE 754 数值格式有一个特殊的数值范围，在这个范围内二进制值可以表示一个整数值。这个数值范围从`Number.MIN_SAFE_INTEGER`（![-2^{53}+1](https://private.codecogs.com/gif.latex?-2^{53}+1)）到`Number.MAX_SAFE_INTEGER`（![2^{53}-1](https://private.codecogs.com/gif.latex?2^{53}-1)）。对超出这个范围的数值，即使尝试保存为整数，IEEE 754 编码格式也意味着二进制值可能会表示一个完全不同的数值。为了鉴别整数是否在这个范围内，可以使用`Number.isSafeInteger()`方法：
 
 ```
 console.log(Number.isSafeInteger(-1 * (2 ** 53)));      // false
@@ -678,7 +678,7 @@ console.log(Number.isSafeInteger(2 ** 53));             // false
 console.log(Number.isSafeInteger((2 ** 53) - 1));       // true
 ```
 
-### 5.3.3　`String`
+### 5.3.3 　`String`
 
 `String`是对应字符串的引用类型。要创建一个`String`对象，使用`String`构造函数并传入一个数值，如下例所示：
 
@@ -686,7 +686,7 @@ console.log(Number.isSafeInteger((2 ** 53) - 1));       // true
 let stringObject = new String("hello world");
 ```
 
-`String`对象的方法可以在所有字符串原始值上调用。3个继承的方法`valueOf()`、`toLcaleString()`和`toString()`都返回对象的原始字符串值。
+`String`对象的方法可以在所有字符串原始值上调用。3 个继承的方法`valueOf()`、`toLcaleString()`和`toString()`都返回对象的原始字符串值。
 
 每个`String`对象都有一个`length`属性，表示字符串中字符的数量。来看下面的例子：
 
@@ -695,47 +695,47 @@ let stringValue = "hello world";
 console.log(stringValue.length); // "11"
 ```
 
-这个例子输出了字符串`"hello world"`中包含的字符数量：`11`。注意，即使字符串中包含双字节字符（而不是单字节的ASCII字符），也仍然会按单字符来计数。
+这个例子输出了字符串`"hello world"`中包含的字符数量：`11`。注意，即使字符串中包含双字节字符（而不是单字节的 ASCII 字符），也仍然会按单字符来计数。
 
 `String`类型提供了很多方法来解析和操作字符串。
 
-1. **JavaScript字符**
+1. **JavaScript 字符**
 
-   JavaScript字符串由16位码元（code unit）组成。对多数字符来说，每16位码元对应一个字符。换句话说，字符串的`length`属性表示字符串包含多少16位码元：
+   JavaScript 字符串由 16 位码元（code unit）组成。对多数字符来说，每 16 位码元对应一个字符。换句话说，字符串的`length`属性表示字符串包含多少 16 位码元：
 
    ```
    let message = "abcde";
-   
+
    console.log(message.length); // 5
    ```
 
-   此外，`charAt()`方法返回给定索引位置的字符，由传给方法的整数参数指定。具体来说，这个方法查找指定索引位置的16位码元，并返回该码元对应的字符：
+   此外，`charAt()`方法返回给定索引位置的字符，由传给方法的整数参数指定。具体来说，这个方法查找指定索引位置的 16 位码元，并返回该码元对应的字符：
 
    ```
    let message = "abcde";
-   
+
    console.log(message.charAt(2)); // "c"
    ```
 
-   JavaScript字符串使用了两种Unicode编码混合的策略：UCS-2和UTF-16。对于可以采用16位编码的字符（U+0000~U+FFFF），这两种编码实际上是一样的。
+   JavaScript 字符串使用了两种 Unicode 编码混合的策略：UCS-2 和 UTF-16。对于可以采用 16 位编码的字符（U+0000~U+FFFF），这两种编码实际上是一样的。
 
-   > **注意**　要深入了解关于字符编码的内容，推荐Joel Spolsky写的博客文章：“The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)”。
+   > **注意**　要深入了解关于字符编码的内容，推荐 Joel Spolsky 写的博客文章：“The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)”。
    >
-   > 另一个有用的资源是Mathias Bynens的博文：“JavaScript's Internal Character Encoding: UCS-2 or UTF-16?”。
+   > 另一个有用的资源是 Mathias Bynens 的博文：“JavaScript's Internal Character Encoding: UCS-2 or UTF-16?”。
 
    使用`charCodeAt()`方法可以查看指定码元的字符编码。这个方法返回指定索引位置的码元值，索引以整数指定。比如：
 
    ```
    let message = "abcde";
-   
+
    // Unicode "Latin small letter C"的编码是U+0063
    console.log(message.charCodeAt(2));  // 99
-   
+
    // 十进制99等于十六进制63
    console.log(99 === 0x63);            // true
    ```
 
-   `fromCharCode()`方法用于根据给定的UTF-16码元创建字符串中的字符。这个方法可以接受任意多个数值，并返回将所有数值对应的字符拼接起来的字符串：
+   `fromCharCode()`方法用于根据给定的 UTF-16 码元创建字符串中的字符。这个方法可以接受任意多个数值，并返回将所有数值对应的字符拼接起来的字符串：
 
    ```
    // Unicode "Latin small letter A"的编码是U+0061
@@ -743,21 +743,21 @@ console.log(stringValue.length); // "11"
    // Unicode "Latin small letter C"的编码是U+0063
    // Unicode "Latin small letter D"的编码是U+0064
    // Unicode "Latin small letter E"的编码是U+0065
-   
+
    console.log(String.fromCharCode(0x61, 0x62, 0x63, 0x64, 0x65));  // "abcde"
-   
+
    // 0x0061 === 97
    // 0x0062 === 98
    // 0x0063 === 99
    // 0x0064 === 100
    // 0x0065 === 101
-   
+
    console.log(String.fromCharCode(97, 98, 99, 100, 101));          // "abcde"
    ```
 
-   对于U+0000~U+FFFF范围内的字符，`length`、`charAt()`、`charCodeAt()`和`fromCharCode()`返回的结果都跟预期是一样的。这是因为在这个范围内，每个字符都是用16位表示的，而这几个方法也都基于16位码元完成操作。只要字符编码大小与码元大小一一对应，这些方法就能如期工作。
+   对于 U+0000~U+FFFF 范围内的字符，`length`、`charAt()`、`charCodeAt()`和`fromCharCode()`返回的结果都跟预期是一样的。这是因为在这个范围内，每个字符都是用 16 位表示的，而这几个方法也都基于 16 位码元完成操作。只要字符编码大小与码元大小一一对应，这些方法就能如期工作。
 
-   这个对应关系在扩展到Unicode增补字符平面时就不成立了。问题很简单，即16位只能唯一表示65 536个字符。这对于大多数语言字符集是足够了，在Unicode中称为**基本多语言平面**（BMP）。为了表示更多的字符，Unicode采用了一个策略，即每个字符使用另外16位去选择一个**增补平面**。这种每个字符使用两个16位码元的策略称为**代理对**。
+   这个对应关系在扩展到 Unicode 增补字符平面时就不成立了。问题很简单，即 16 位只能唯一表示 65 536 个字符。这对于大多数语言字符集是足够了，在 Unicode 中称为**基本多语言平面**（BMP）。为了表示更多的字符，Unicode 采用了一个策略，即每个字符使用另外 16 位去选择一个**增补平面**。这种每个字符使用两个 16 位码元的策略称为**代理对**。
 
    在涉及增补平面的字符时，前面讨论的字符串方法就会出问题。比如，下面的例子中使用了一个笑脸表情符号，也就是一个使用代理对编码的字符：
 
@@ -765,30 +765,30 @@ console.log(stringValue.length); // "11"
    // "smiling face with smiling eyes" 表情符号的编码是U+1F60A
    // 0x1F60A === 128522
    let message = "ab☺de";
-   
+
    console.log(message.length);          // 6
    console.log(message.charAt(1));       // b
    console.log(message.charAt(2));       // <?>
    console.log(message.charAt(3));       // <?>
    console.log(message.charAt(4));       // d
-   
+
    console.log(message.charCodeAt(1));   // 98
    console.log(message.charCodeAt(2));   // 55357
    console.log(message.charCodeAt(3));   // 56842
    console.log(message.charCodeAt(4));   // 100
-   
+
    console.log(String.fromCodePoint(0x1F60A)); // ☺
-   
+
    console.log(String.fromCharCode(97, 98, 55357, 56842, 100, 101)); // ab☺de
    ```
 
-   这些方法仍然将16位码元当作一个字符，事实上索引2和索引3对应的码元应该被看成一个代理对，只对应一个字符。`fromCharCode()`方法仍然返回正确的结果，因为它实际上是基于提供的二进制表示直接组合成字符串。浏览器可以正确解析代理对（由两个码元构成），并正确地将其识别为一个Unicode笑脸字符。
+   这些方法仍然将 16 位码元当作一个字符，事实上索引 2 和索引 3 对应的码元应该被看成一个代理对，只对应一个字符。`fromCharCode()`方法仍然返回正确的结果，因为它实际上是基于提供的二进制表示直接组合成字符串。浏览器可以正确解析代理对（由两个码元构成），并正确地将其识别为一个 Unicode 笑脸字符。
 
-   为正确解析既包含单码元字符又包含代理对字符的字符串，可以使用`codePointAt()`来代替`charCodeAt()`。跟使用`charCodeAt()`时类似，`codePointAt()`接收16位码元的索引并返回该索引位置上的码点（code point）。**码点**是Unicode中一个字符的完整标识。比如，`"c"`的码点是0x0063，而"☺"的码点是0x1F60A。码点可能是16位，也可能是32位，而`codePointAt()`方法可以从指定码元位置识别完整的码点。
+   为正确解析既包含单码元字符又包含代理对字符的字符串，可以使用`codePointAt()`来代替`charCodeAt()`。跟使用`charCodeAt()`时类似，`codePointAt()`接收 16 位码元的索引并返回该索引位置上的码点（code point）。**码点**是 Unicode 中一个字符的完整标识。比如，`"c"`的码点是 0x0063，而"☺"的码点是 0x1F60A。码点可能是 16 位，也可能是 32 位，而`codePointAt()`方法可以从指定码元位置识别完整的码点。
 
    ```
    let message = "ab☺de";
-   
+
    console.log(message.codePointAt(1)); // 98
    console.log(message.codePointAt(2)); // 128522
    console.log(message.codePointAt(3)); // 56842
@@ -808,41 +808,39 @@ console.log(stringValue.length); // "11"
    console.log(String.fromCodePoint(97, 98, 128522, 100, 101));       // ab☺de
    ```
 
-    
+2) **normalize()方法**
 
-2. **normalize()方法**
-
-   某些Unicode字符可以有多种编码方式。有的字符既可以通过一个BMP字符表示，也可以通过一个代理对表示。比如：
+   某些 Unicode 字符可以有多种编码方式。有的字符既可以通过一个 BMP 字符表示，也可以通过一个代理对表示。比如：
 
    ```
    // U+00C5：上面带圆圈的大写拉丁字母A
    console.log(String.fromCharCode(0x00C5));          // Å
-   
+
    // U+212B：长度单位“埃”
    console.log(String.fromCharCode(0x212B));          // Å
-   
+
    // U+004：大写拉丁字母A
    // U+030A：上面加个圆圈
    console.log(String.fromCharCode(0x0041, 0x030A));  // Å
    ```
 
-   比较操作符不在乎字符看起来是什么样的，因此这3个字符互不相等。
+   比较操作符不在乎字符看起来是什么样的，因此这 3 个字符互不相等。
 
    ```
    let a1 = String.fromCharCode(0x00C5),
        a2 = String.fromCharCode(0x212B),
        a3 = String.fromCharCode(0x0041, 0x030A);
-   
+
    console.log(a1, a2, a3); // Å, Å, Å
-   
+
    console.log(a1 === a2);  // false
    console.log(a1 === a3);  // false
    console.log(a2 === a3);  // false
    ```
 
-   为解决这个问题，Unicode提供了4种规范化形式，可以将类似上面的字符规范化为一致的格式，无论底层字符的代码是什么。这4种规范化形式是：NFD（Normalization Form D）、NFC（Normalization Form C）、NFKD（Normalization Form KD）和NFKC（Normalization Form KC）。可以使用`normalize()`方法对字符串应用上述规范化形式，使用时需要传入表示哪种形式的字符串：`"NFD"`、`"NFC"`、`"NFKD"`或`"NFKC"`。
+   为解决这个问题，Unicode 提供了 4 种规范化形式，可以将类似上面的字符规范化为一致的格式，无论底层字符的代码是什么。这 4 种规范化形式是：NFD（Normalization Form D）、NFC（Normalization Form C）、NFKD（Normalization Form KD）和 NFKC（Normalization Form KC）。可以使用`normalize()`方法对字符串应用上述规范化形式，使用时需要传入表示哪种形式的字符串：`"NFD"`、`"NFC"`、`"NFKD"`或`"NFKC"`。
 
-   > **注意**　这4种规范化形式的具体细节超出了本书范围，有兴趣的读者可以自行参考*UAX 15#: Unicode Normalization Forms*中的1.2节“Normalization Forms”。
+   > **注意**　这 4 种规范化形式的具体细节超出了本书范围，有兴趣的读者可以自行参考*UAX 15#: Unicode Normalization Forms*中的 1.2 节“Normalization Forms”。
 
    通过比较字符串与其调用`normalize()`的返回值，就可以知道该字符串是否已经规范化了：
 
@@ -850,19 +848,19 @@ console.log(stringValue.length); // "11"
    let a1 = String.fromCharCode(0x00C5),
        a2 = String.fromCharCode(0x212B),
        a3 = String.fromCharCode(0x0041, 0x030A);
-   
+
    // U+00C5是对0+212B进行NFC/NFKC规范化之后的结果
    console.log(a1 === a1.normalize("NFD"));  // false
    console.log(a1 === a1.normalize("NFC"));  // true
    console.log(a1 === a1.normalize("NFKD")); // false
    console.log(a1 === a1.normalize("NFKC")); // true
-   
+
    // U+212B是未规范化的
    console.log(a2 === a2.normalize("NFD"));  // false
    console.log(a2 === a2.normalize("NFC"));  // false
    console.log(a2 === a2.normalize("NFKD")); // false
    console.log(a2 === a2.normalize("NFKC")); // false
-   
+
    // U+0041/U+030A是对0+212B进行NFD/NFKD规范化之后的结果
    console.log(a3 === a3.normalize("NFD"));  // true
    console.log(a3 === a3.normalize("NFC"));  // false
@@ -876,13 +874,11 @@ console.log(stringValue.length); // "11"
    let a1 = String.fromCharCode(0x00C5),
        a2 = String.fromCharCode(0x212B),
        a3 = String.fromCharCode(0x0041, 0x030A);
-   
+
    console.log(a1.normalize("NFD") === a2.normalize("NFD"));    // true
    console.log(a2.normalize("NFKC") === a3.normalize("NFKC"));  // true
    console.log(a1.normalize("NFC") === a3.normalize("NFC"));    // true
    ```
-
-    
 
 3. **字符串操作方法**
 
@@ -891,7 +887,7 @@ console.log(stringValue.length); // "11"
    ```
    let stringValue = "hello ";
    let result = stringValue.concat("world");
-   
+
    console.log(result);      // "hello world"
    console.log(stringValue); // "hello"
    ```
@@ -901,14 +897,14 @@ console.log(stringValue.length); // "11"
    ```
    let stringValue = "hello ";
    let result = stringValue.concat("world", "!");
-   
+
    console.log(result);      // "hello world!"
    console.log(stringValue); // "hello"
    ```
 
    这个修改后的例子将字符串`"world"`和`"!"`追加到了`"hello "`后面。虽然`concat()`方法可以拼接字符串，但更常用的方式是使用加号操作符（`+`）。而且多数情况下，对于拼接多个字符串来说，使用加号更方便。
 
-   ECMAScript提供了3个从字符串中提取子字符串的方法：`slice()`、`substr()`和`substring()`。这3个方法都返回调用它们的字符串的一个子字符串，而且都接收一或两个参数。第一个参数表示子字符串开始的位置，第二个参数表示子字符串结束的位置。对`slice()`和`substring()`而言，第二个参数是提取结束的位置（即该位置之前的字符会被提取出来）。对`substr()`而言，第二个参数表示返回的子字符串数量。任何情况下，省略第二个参数都意味着提取到字符串末尾。与`concat()`方法一样，`slice()`、`substr()`和`substring()`也不会修改调用它们的字符串，而只会返回提取到的原始新字符串值。来看下面的例子：
+   ECMAScript 提供了 3 个从字符串中提取子字符串的方法：`slice()`、`substr()`和`substring()`。这 3 个方法都返回调用它们的字符串的一个子字符串，而且都接收一或两个参数。第一个参数表示子字符串开始的位置，第二个参数表示子字符串结束的位置。对`slice()`和`substring()`而言，第二个参数是提取结束的位置（即该位置之前的字符会被提取出来）。对`substr()`而言，第二个参数表示返回的子字符串数量。任何情况下，省略第二个参数都意味着提取到字符串末尾。与`concat()`方法一样，`slice()`、`substr()`和`substring()`也不会修改调用它们的字符串，而只会返回提取到的原始新字符串值。来看下面的例子：
 
    ```
    let stringValue = "hello world";
@@ -920,11 +916,11 @@ console.log(stringValue.length); // "11"
    console.log(stringValue.substr(3, 7));   // "lo worl"
    ```
 
-   在这个例子中，`slice()`、`substr()`和`substring()`是以相同方式被调用的，而且多数情况下返回的值也相同。如果只传一个参数`3`，则所有方法都将返回`"lo world"`，因为`"hello"`中`"l"`位置为3。如果传入两个参数`3`和`7`，则`slice()`和`substring()`返回`"lo w"`（因为`"world"`中`"o"`在位置7，不包含），而`substr()`返回`"lo worl"`，因为第二个参数对它而言表示返回的字符数。
+   在这个例子中，`slice()`、`substr()`和`substring()`是以相同方式被调用的，而且多数情况下返回的值也相同。如果只传一个参数`3`，则所有方法都将返回`"lo world"`，因为`"hello"`中`"l"`位置为 3。如果传入两个参数`3`和`7`，则`slice()`和`substring()`返回`"lo w"`（因为`"world"`中`"o"`在位置 7，不包含），而`substr()`返回`"lo worl"`，因为第二个参数对它而言表示返回的字符数。
 
-   当某个参数是负值时，这3个方法的行为又有不同。比如，`slice()`方法将所有负值参数都当成字符串长度加上负参数值。
+   当某个参数是负值时，这 3 个方法的行为又有不同。比如，`slice()`方法将所有负值参数都当成字符串长度加上负参数值。
 
-   而`substr()`方法将第一个负参数值当成字符串长度加上该值，将第二个负参数值转换为0。`substring()`方法会将所有负参数值都转换为0。看下面的例子：
+   而`substr()`方法将第一个负参数值当成字符串长度加上该值，将第二个负参数值转换为 0。`substring()`方法会将所有负参数值都转换为 0。看下面的例子：
 
    ```
    let stringValue = "hello world";
@@ -936,12 +932,11 @@ console.log(stringValue.length); // "11"
    console.log(stringValue.substr(3, -4));     // "" (empty string)
    ```
 
-   这个例子明确演示了3个方法的差异。在给`slice()`和`substr()`传入负参数时，它们的返回结果相同。这是因为`-3`会被转换为`8`（长度加上负参数），实际上调用的是`slice(8)`和`substr(8)`。而`substring()`方法返回整个字符串，因为`-3`会转换为`0`。
+   这个例子明确演示了 3 个方法的差异。在给`slice()`和`substr()`传入负参数时，它们的返回结果相同。这是因为`-3`会被转换为`8`（长度加上负参数），实际上调用的是`slice(8)`和`substr(8)`。而`substring()`方法返回整个字符串，因为`-3`会转换为`0`。
 
-   在第二个参数是负值时，这3个方法各不相同。`slice()`方法将第二个参数转换为`7`，实际上相当于调用`slice(3, 7)`，因此返回`"lo w"`。而`substring()`方法会将第二个参数转换为`0`，相当于调用`substring(3, 0)`，等价于`substring(0, 3)`，这是因为这个方法会将较小的参数作为起点，将较大的参数作为终点。对`substr()`来说，第二个参数会被转换为`0`，意味着返回的字符串包含零个字符，因而会返回一个空字符串。
-    
+   在第二个参数是负值时，这 3 个方法各不相同。`slice()`方法将第二个参数转换为`7`，实际上相当于调用`slice(3, 7)`，因此返回`"lo w"`。而`substring()`方法会将第二个参数转换为`0`，相当于调用`substring(3, 0)`，等价于`substring(0, 3)`，这是因为这个方法会将较小的参数作为起点，将较大的参数作为终点。对`substr()`来说，第二个参数会被转换为`0`，意味着返回的字符串包含零个字符，因而会返回一个空字符串。
 
-4. **字符串位置方法**
+4) **字符串位置方法**
 
    有两个方法用于在字符串中定位子字符串：`indexOf()`和`lastIndexOf()`。这两个方法从字符串中搜索传入的字符串，并返回位置（如果没找到，则返回`-1`）。两者的区别在于，`indexOf()`方法从字符串开头开始查找子字符串，而`lastIndexOf()`方法从字符串末尾开始查找子字符串。来看下面的例子：
 
@@ -951,7 +946,7 @@ console.log(stringValue.length); // "11"
    console.log(stringValue.lastIndexOf("o")); // 7
    ```
 
-   这里，字符串中第一个`"o"`的位置是4，即`"hello"`中的`"o"`。最后一个`"o"`的位置是7，即`"world"`中的`"o"`。如果字符串中只有一个`"o"`，则`indexOf()`和`lastIndexOf()`返回同一个位置。
+   这里，字符串中第一个`"o"`的位置是 4，即`"hello"`中的`"o"`。最后一个`"o"`的位置是 7，即`"world"`中的`"o"`。如果字符串中只有一个`"o"`，则`indexOf()`和`lastIndexOf()`返回同一个位置。
 
    这两个方法都可以接收可选的第二个参数，表示开始搜索的位置。这意味着，`indexOf()`会从这个参数指定的位置开始向字符串末尾搜索，忽略该位置之前的字符；`lastIndexOf()`则会从这个参数指定的位置开始向字符串开头搜索，忽略该位置之后直到字符串末尾的字符。下面看一个例子：
 
@@ -961,37 +956,36 @@ console.log(stringValue.length); // "11"
    console.log(stringValue.lastIndexOf("o", 6)); // 4
    ```
 
-   在传入第二个参数`6`以后，结果跟前面的例子恰好相反。这一次，`indexOf()`返回`7`，因为它从位置6（字符`"w"`）开始向后搜索字符串，在位置7找到了`"o"`。而`lastIndexOf()`返回`4`，因为它从位置6开始反向搜索至字符串开头，因此找到了`"hello"`中的`"o"`。像这样使用第二个参数并循环调用`indexOf()`或`lastIndexOf()`，就可以在字符串中找到所有的目标子字符串，如下所示：
+   在传入第二个参数`6`以后，结果跟前面的例子恰好相反。这一次，`indexOf()`返回`7`，因为它从位置 6（字符`"w"`）开始向后搜索字符串，在位置 7 找到了`"o"`。而`lastIndexOf()`返回`4`，因为它从位置 6 开始反向搜索至字符串开头，因此找到了`"hello"`中的`"o"`。像这样使用第二个参数并循环调用`indexOf()`或`lastIndexOf()`，就可以在字符串中找到所有的目标子字符串，如下所示：
 
    ```
    let stringValue = "Lorem ipsum dolor sit amet, consectetur adipisicing elit";
    let positions = new Array();
    let pos = stringValue.indexOf("e");
-   
+
    while(pos > -1) {
      positions.push(pos);
      pos = stringValue.indexOf("e", pos + 1);
    }
-   
+
    console.log(positions); // [3,24,32,35,52]
    ```
 
-   这个例子逐步增大开始搜索的位置，通过`indexOf()`遍历了整个字符串。首先取得第一个`"e"`的位置，然后进入循环，将上一次的位置加1再传给`indexOf()`，确保搜索到最后一个子字符串实例之后。每个位置都保存在`positions`数组中，可供以后使用。
-    
+   这个例子逐步增大开始搜索的位置，通过`indexOf()`遍历了整个字符串。首先取得第一个`"e"`的位置，然后进入循环，将上一次的位置加 1 再传给`indexOf()`，确保搜索到最后一个子字符串实例之后。每个位置都保存在`positions`数组中，可供以后使用。
 
 5. **字符串包含方法**
 
-   ECMAScript 6增加了3个用于判断字符串中是否包含另一个字符串的方法：`startsWith()`、`endsWith()`和`includes()`。这些方法都会从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔值。它们的区别在于，`startsWith()`检查开始于索引0的匹配项，`endsWith()`检查开始于索引`(string.length - substring.length)`的匹配项，而`includes()`检查整个字符串：
+   ECMAScript 6 增加了 3 个用于判断字符串中是否包含另一个字符串的方法：`startsWith()`、`endsWith()`和`includes()`。这些方法都会从字符串中搜索传入的字符串，并返回一个表示是否包含的布尔值。它们的区别在于，`startsWith()`检查开始于索引 0 的匹配项，`endsWith()`检查开始于索引`(string.length - substring.length)`的匹配项，而`includes()`检查整个字符串：
 
    ```
    let message = "foobarbaz";
-   
+
    console.log(message.startsWith("foo"));  // true
    console.log(message.startsWith("bar"));  // false
-   
+
    console.log(message.endsWith("baz"));    // true
    console.log(message.endsWith("bar"));    // false
-   
+
    console.log(message.includes("bar"));    // true
    console.log(message.includes("qux"));    // false
    ```
@@ -1000,10 +994,10 @@ console.log(stringValue.length); // "11"
 
    ```
    let message = "foobarbaz";
-   
+
    console.log(message.startsWith("foo"));     // true
    console.log(message.startsWith("foo", 1));  // false
-   
+
    console.log(message.includes("bar"));       // true
    console.log(message.includes("bar", 4));    // false
    ```
@@ -1012,16 +1006,14 @@ console.log(stringValue.length); // "11"
 
    ```
    let message = "foobarbaz";
-   
+
    console.log(message.endsWith("bar"));     // false
    console.log(message.endsWith("bar", 6));  // true
    ```
 
-    
+6) **trim()方法**
 
-6. **trim()方法**
-
-   ECMAScript在所有字符串上都提供了`trim()`方法。这个方法会创建字符串的一个副本，删除前、后所有空格符，再返回结果。比如：
+   ECMAScript 在所有字符串上都提供了`trim()`方法。这个方法会创建字符串的一个副本，删除前、后所有空格符，再返回结果。比如：
 
    ```
    let stringValue = "  hello world  ";
@@ -1033,11 +1025,10 @@ console.log(stringValue.length); // "11"
    由于`trim()`返回的是字符串的副本，因此原始字符串不受影响，即原本的前、后空格符都会保留。
 
    另外，`trimeLeft()`和`trimRight()`方法分别用于从字符串开始和末尾清理空格符。
-    
 
 7. **repeat()方法**
 
-   ECMAScript在所有字符串上都提供了`repeat()`方法。这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果。
+   ECMAScript 在所有字符串上都提供了`repeat()`方法。这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果。
 
    ```
    let stringValue = "na ";
@@ -1045,18 +1036,16 @@ console.log(stringValue.length); // "11"
    // na na na na na na na na na na na na na na na na batman
    ```
 
-    
-
-8. **padStart()和padEnd()方法**
+8) **padStart()和 padEnd()方法**
 
    `padStart()`和`padEnd()`方法会复制字符串，如果小于指定长度，则在相应一边填充字符，直至满足长度条件。这两个方法的第一个参数是长度，第二个参数是可选的填充字符串，默认为空格（U+0020）。
 
    ```
    let stringValue = "foo";
-   
+
    console.log(stringValue.padStart(6));       // "   foo"
    console.log(stringValue.padStart(9, "."));  // "......foo"
-   
+
    console.log(stringValue.padEnd(6));         // "foo   "
    console.log(stringValue.padEnd(9, "."));    // "foo......"
    ```
@@ -1065,15 +1054,13 @@ console.log(stringValue.length); // "11"
 
    ```
    let stringValue = "foo";
-   
+
    console.log(stringValue.padStart(8, "bar")); // "barbafoo"
    console.log(stringValue.padStart(2));        // "foo"
-   
+
    console.log(stringValue.padEnd(8, "bar"));   // "foobarba"
    console.log(stringValue.padEnd(2));          // "foo"
    ```
-
-    
 
 9. **字符串迭代与解构**
 
@@ -1082,7 +1069,7 @@ console.log(stringValue.length); // "11"
    ```
    let message = "abc";
    let stringIterator = message[Symbol.iterator]();
-   
+
    console.log(stringIterator.next());  // {value: "a", done: false}
    console.log(stringIterator.next());  // {value: "b", done: false}
    console.log(stringIterator.next());  // {value: "c", done: false}
@@ -1095,7 +1082,7 @@ console.log(stringValue.length); // "11"
    for (const c of "abcde") {
      console.log(c);
    }
-   
+
    // a
    // b
    // c
@@ -1107,15 +1094,13 @@ console.log(stringValue.length); // "11"
 
    ```
    let message = "abcde";
-   
+
    console.log([...message]); // ["a", "b", "c", "d", "e"]
    ```
 
-    
+10) **字符串大小写转换**
 
-10. **字符串大小写转换**
-
-    下一组方法涉及大小写转换，包括4个方法：`toLowerCase()`、`toLocaleLowerCase()`、`toUpperCase()`和`toLocaleUpperCase()`。`toLowerCase()`和`toUpperCase()`方法是原来就有的方法，与`java.lang.String`中的方法同名。`toLocaleLowerCase()`和`toLocaleUpperCase()`方法旨在基于特定地区实现。在很多地区，地区特定的方法与通用的方法是一样的。但在少数语言中（如土耳其语），Unicode大小写转换需应用特殊规则，要使用地区特定的方法才能实现正确转换。下面是几个例子：
+    下一组方法涉及大小写转换，包括 4 个方法：`toLowerCase()`、`toLocaleLowerCase()`、`toUpperCase()`和`toLocaleUpperCase()`。`toLowerCase()`和`toUpperCase()`方法是原来就有的方法，与`java.lang.String`中的方法同名。`toLocaleLowerCase()`和`toLocaleUpperCase()`方法旨在基于特定地区实现。在很多地区，地区特定的方法与通用的方法是一样的。但在少数语言中（如土耳其语），Unicode 大小写转换需应用特殊规则，要使用地区特定的方法才能实现正确转换。下面是几个例子：
 
     ```
     let stringValue = "hello world";
@@ -1126,7 +1111,6 @@ console.log(stringValue.length); // "11"
     ```
 
     这里，`toLowerCase()`和`toLocaleLowerCase()`都返回`hello world`，而`toUpperCase()`和`toLocaleUpperCase()`都返回`HELLO WORLD`。通常，如果不知道代码涉及什么语言，则最好使用地区特定的转换方法。
-     
 
 11. **字符串模式匹配方法**
 
@@ -1135,7 +1119,7 @@ console.log(stringValue.length); // "11"
     ```
     let text = "cat, bat, sat, fat";
     let pattern = /.at/;
-    
+
     // 等价于pattern.exec(text)
     let matches = text.match(pattern);
     console.log(matches.index);      // 0
@@ -1155,29 +1139,29 @@ console.log(stringValue.length); // "11"
 
     这里，`search(/at/)`返回`1`，即`"at"`的第一个字符在字符串中的位置。
 
-    为简化子字符串替换操作，ECMAScript提供了`replace()`方法。这个方法接收两个参数，第一个参数可以是一个`RegExp`对象或一个字符串（这个字符串不会转换为正则表达式），第二个参数可以是一个字符串或一个函数。如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有子字符串，第一个参数必须为正则表达式并且带全局标记，如下面的例子所示：
+    为简化子字符串替换操作，ECMAScript 提供了`replace()`方法。这个方法接收两个参数，第一个参数可以是一个`RegExp`对象或一个字符串（这个字符串不会转换为正则表达式），第二个参数可以是一个字符串或一个函数。如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有子字符串，第一个参数必须为正则表达式并且带全局标记，如下面的例子所示：
 
     ```
     let text = "cat, bat, sat, fat";
     let result = text.replace("at", "ond");
     console.log(result);  // "cond, bat, sat, fat"
-    
+
     result = text.replace(/at/g, "ond");
     console.log(result);  // "cond, bond, sond, fond"
     ```
 
     在这个例子中，字符串`"at"`先传给`replace()`函数，而替换文本是`"ond"`。结果是`"cat"`被修改为`"cond"`，而字符串的剩余部分保持不变。通过将第一个参数改为带全局标记的正则表达式，字符串中的所有`"at"`都被替换成了`"ond"`。
 
-    第二个参数是字符串的情况下，有几个特殊的字符序列，可以用来插入正则表达式操作的值。ECMA-262中规定了下表中的值。
+    第二个参数是字符串的情况下，有几个特殊的字符序列，可以用来插入正则表达式操作的值。ECMA-262 中规定了下表中的值。
 
-    | 字符序列 | 替换文本                                                     |
-    | :------- | :----------------------------------------------------------- |
-    | `$$`     | `$`                                                          |
-    | `$&`     | 匹配整个模式的子字符串。与`RegExp.lastMatch`相同             |
-    | `$'`     | 匹配的子字符串之前的字符串。与`RegExp.rightContext`相同      |
-    | `$``     | 匹配的子字符串之后的字符串。与`RegExp.leftContext`相同       |
-    | `$*n*`   | 匹配第`*n*`个捕获组的字符串，其中`*n*`是0~9。比如，`$1`是匹配第一个捕获组的字符串，`$2`是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串 |
-    | `$*nn*`  | 匹配第`*nn*`个捕获组字符串，其中`*nn*`是01~99。比如，`$01`是匹配第一个捕获组的字符串，`$02`是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串 |
+    | 字符序列 | 替换文本                                                                                                                                                         |
+    | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `$$`     | `$`                                                                                                                                                              |
+    | `$&`     | 匹配整个模式的子字符串。与`RegExp.lastMatch`相同                                                                                                                 |
+    | `$'`     | 匹配的子字符串之前的字符串。与`RegExp.rightContext`相同                                                                                                          |
+    | `\$``    | 匹配的子字符串之后的字符串。与`RegExp.leftContext`相同                                                                                                           |
+    | `$*n*`   | 匹配第`*n*`个捕获组的字符串，其中`*n*`是 0~9。比如，`$1`是匹配第一个捕获组的字符串，`$2`是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串     |
+    | `$*nn*`  | 匹配第`*nn*`个捕获组字符串，其中`*nn*`是 01~99。比如，`$01`是匹配第一个捕获组的字符串，`$02`是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串 |
 
     使用这些特殊的序列，可以在替换文本中使用之前匹配的内容，如下面的例子所示：
 
@@ -1189,7 +1173,7 @@ console.log(stringValue.length); // "11"
 
     这里，每个以`"at"`结尾的词都会被替换成`"word"`后跟一对小括号，其中包含捕获组匹配的内容`$1`。
 
-    `replace()`的第二个参数可以是一个函数。在只有一个匹配项时，这个函数会收到3个参数：与整个模式匹配的字符串、匹配项在字符串中的开始位置，以及整个字符串。在有多个捕获组的情况下，每个匹配捕获组的字符串也会作为参数传给这个函数，但最后两个参数还是与整个模式匹配的开始位置和原始字符串。这个函数应该返回一个字符串，表示应该把匹配项替换成什么。使用函数作为第二个参数可以更细致地控制替换过程，如下所示：
+    `replace()`的第二个参数可以是一个函数。在只有一个匹配项时，这个函数会收到 3 个参数：与整个模式匹配的字符串、匹配项在字符串中的开始位置，以及整个字符串。在有多个捕获组的情况下，每个匹配捕获组的字符串也会作为参数传给这个函数，但最后两个参数还是与整个模式匹配的开始位置和原始字符串。这个函数应该返回一个字符串，表示应该把匹配项替换成什么。使用函数作为第二个参数可以更细致地控制替换过程，如下所示：
 
     ```
     function htmlEscape(text) {
@@ -1206,12 +1190,12 @@ console.log(stringValue.length); // "11"
         }
       });
     }
-    
+
     console.log(htmlEscape("<p class=\"greeting\">Hello world!</p>"));
     // "&lt;p class=&quot;greeting&quot;&gt;Hello world!</p>"
     ```
 
-    这里，函数`htmlEscape()`用于将一段HTML中的4个字符替换成对应的实体：小于号、大于号、和号，还有双引号（都必须经过转义）。实现这个任务最简单的办法就是用一个正则表达式查找这些字符，然后定义一个函数，根据匹配的每个字符分别返回特定的HTML实体。
+    这里，函数`htmlEscape()`用于将一段 HTML 中的 4 个字符替换成对应的实体：小于号、大于号、和号，还有双引号（都必须经过转义）。实现这个任务最简单的办法就是用一个正则表达式查找这些字符，然后定义一个函数，根据匹配的每个字符分别返回特定的 HTML 实体。
 
     最后一个与模式匹配相关的字符串方法是`split()`。这个方法会根据传入的分隔符将字符串拆分成数组。作为分隔符的参数可以是字符串，也可以是`RegExp`对象。（字符串分隔符不会被这个方法当成正则表达式。）还可以传入第二个参数，即数组大小，确保返回的数组不会超过指定大小。来看下面的例子：
 
@@ -1222,12 +1206,11 @@ console.log(stringValue.length); // "11"
     let colors3 = colorText.split(/[^,]+/);   // ["", ",", ",", ",", ""]
     ```
 
-    在这里，字符串`colorText`是一个逗号分隔的颜色名称符串。调用`split(",")`会得到包含这些颜色名的数组，基于逗号进行拆分。要把数组元素限制为2个，传入第二个参数2即可。最后，使用正则表达式可以得到一个包含逗号的数组。注意在最后一次调用`split()`时，返回的数组前后包含两个空字符串。这是因为正则表达式指定的分隔符出现在了字符串开头（`"red"`）和末尾（`"yellow"`）。
-     
+    在这里，字符串`colorText`是一个逗号分隔的颜色名称符串。调用`split(",")`会得到包含这些颜色名的数组，基于逗号进行拆分。要把数组元素限制为 2 个，传入第二个参数 2 即可。最后，使用正则表达式可以得到一个包含逗号的数组。注意在最后一次调用`split()`时，返回的数组前后包含两个空字符串。这是因为正则表达式指定的分隔符出现在了字符串开头（`"red"`）和末尾（`"yellow"`）。
 
-12. **localeCompare()方法**
+12) **localeCompare()方法**
 
-    最后一个方法是`localeCompare()`，这个方法比较两个字符串，返回如下3个值中的一个。
+    最后一个方法是`localeCompare()`，这个方法比较两个字符串，返回如下 3 个值中的一个。
 
     - 如果按照字母表顺序，字符串应该排在字符串参数前头，则返回负值。（通常是`-1`，具体还要看与实际值相关的实现。）
     - 如果字符串与字符串参数相等，则返回`0`。
@@ -1242,7 +1225,7 @@ console.log(stringValue.length); // "11"
     console.log(stringValue.localeCompare("zoo"));    // -1
     ```
 
-    在这里，字符串`"yellow"`与3个不同的值进行了比较：`"brick"`、`"yellow"`和`"zoo"`。`"brick"`按字母表顺序应该排在`"yellow"`前头，因此`localeCompare()`返回1。`"yellow"`等于`"yellow"`，因此`"localeCompare()"`返回`0`。最后，`"zoo"`在`"yellow"`后面，因此`localeCompare()`返回`-1`。强调一下，因为返回的具体值可能因具体实现而异，所以最好像下面的示例中一样使用`localeCompare()`：
+    在这里，字符串`"yellow"`与 3 个不同的值进行了比较：`"brick"`、`"yellow"`和`"zoo"`。`"brick"`按字母表顺序应该排在`"yellow"`前头，因此`localeCompare()`返回 1。`"yellow"`等于`"yellow"`，因此`"localeCompare()"`返回`0`。最后，`"zoo"`在`"yellow"`后面，因此`localeCompare()`返回`-1`。强调一下，因为返回的具体值可能因具体实现而异，所以最好像下面的示例中一样使用`localeCompare()`：
 
     ```
     function determineOrder(value) {
@@ -1255,7 +1238,7 @@ console.log(stringValue.length); // "11"
         console.log(`The string 'yellow' is equal to the string '${value}'.`);
       }
     }
-    
+
     determineOrder("brick");
     determineOrder("yellow");
     determineOrder("zoo");
@@ -1263,12 +1246,11 @@ console.log(stringValue.length); // "11"
 
     这样一来，就可以保证在所有实现中都能正确判断字符串的顺序了。
 
-    `localeCompare()`的独特之处在于，实现所在的地区（国家和语言）决定了这个方法如何比较字符串。在美国，英语是ECMAScript实现的标准语言，`localeCompare()`区分大小写，大写字母排在小写字母前面。但其他地区未必是这种情况。
-     
+    `localeCompare()`的独特之处在于，实现所在的地区（国家和语言）决定了这个方法如何比较字符串。在美国，英语是 ECMAScript 实现的标准语言，`localeCompare()`区分大小写，大写字母排在小写字母前面。但其他地区未必是这种情况。
 
-13. **HTML方法**
+13. **HTML 方法**
 
-    早期的浏览器开发商认为使用JavaScript动态生成HTML标签是一个需求。因此，早期浏览器扩展了规范，增加了辅助生成HTML标签的方法。下表总结了这些HTML方法。不过，这些方法基本上已经没有人使用了，因为结果通常不是语义化的标记。
+    早期的浏览器开发商认为使用 JavaScript 动态生成 HTML 标签是一个需求。因此，早期浏览器扩展了规范，增加了辅助生成 HTML 标签的方法。下表总结了这些 HTML 方法。不过，这些方法基本上已经没有人使用了，因为结果通常不是语义化的标记。
 
     | 方法                 | 输出                                    |
     | :------------------- | :-------------------------------------- |
@@ -1285,55 +1267,53 @@ console.log(stringValue.length); // "11"
     | `sub()`              | `<sub>*string*</sub>`                   |
     | `sup()`              | `<sup>*string*</sup>`                   |
 
-## 5.4　单例内置对象
+## 5.4 　单例内置对象
 
-ECMA-262对内置对象的定义是“任何由ECMAScript实现提供、与宿主环境无关，并在ECMAScript程序开始执行时就存在的对象”。这就意味着，开发者不用显式地实例化内置对象，因为它们已经实例化好了。前面我们已经接触了大部分内置对象，包括`Object`、`Array`和`String`。本节介绍ECMA-262定义的另外两个单例内置对象：`Global`和`Math`。
+ECMA-262 对内置对象的定义是“任何由 ECMAScript 实现提供、与宿主环境无关，并在 ECMAScript 程序开始执行时就存在的对象”。这就意味着，开发者不用显式地实例化内置对象，因为它们已经实例化好了。前面我们已经接触了大部分内置对象，包括`Object`、`Array`和`String`。本节介绍 ECMA-262 定义的另外两个单例内置对象：`Global`和`Math`。
 
-### 5.4.1　`Global`
+### 5.4.1 　`Global`
 
-`Global`对象是ECMAScript中最特别的对象，因为代码不会显式地访问它。ECMA-262规定`Global`对象为一种兜底对象，它所针对的是不属于任何对象的属性和方法。事实上，不存在全局变量或全局函数这种东西。在全局作用域中定义的变量和函数都会变成`Global`对象的属性 。本书前面介绍的函数，包括`isNaN()`、`isFinite()`、`parseInt()`和`parseFloat()`，实际上都是`Global`对象的方法。除了这些，`Global`对象上还有另外一些方法。
+`Global`对象是 ECMAScript 中最特别的对象，因为代码不会显式地访问它。ECMA-262 规定`Global`对象为一种兜底对象，它所针对的是不属于任何对象的属性和方法。事实上，不存在全局变量或全局函数这种东西。在全局作用域中定义的变量和函数都会变成`Global`对象的属性 。本书前面介绍的函数，包括`isNaN()`、`isFinite()`、`parseInt()`和`parseFloat()`，实际上都是`Global`对象的方法。除了这些，`Global`对象上还有另外一些方法。
 
-1. **URL编码方法**
+1. **URL 编码方法**
 
-   `encodeURI()`和`encodeURIComponent()`方法用于编码统一资源标识符（URI），以便传给浏览器。有效的URI不能包含某些字符，比如空格。使用URI编码方法来编码URI可以让浏览器能够理解它们，同时又以特殊的UTF-8编码替换掉所有无效字符。
+   `encodeURI()`和`encodeURIComponent()`方法用于编码统一资源标识符（URI），以便传给浏览器。有效的 URI 不能包含某些字符，比如空格。使用 URI 编码方法来编码 URI 可以让浏览器能够理解它们，同时又以特殊的 UTF-8 编码替换掉所有无效字符。
 
-   `ecnodeURI()`方法用于对整个URI进行编码，比如`"www.wrox.com/illegal value.js"`。而`encodeURIComponent()`方法用于编码URI中单独的组件，比如前面URL中的`"illegal value.js"`。这两个方法的主要区别是，`encodeURI()`不会编码属于URL组件的特殊字符，比如冒号、斜杠、问号、井号，而`encodeURIComponent()`会编码它发现的所有非标准字符。来看下面的例子：
+   `ecnodeURI()`方法用于对整个 URI 进行编码，比如`"www.wrox.com/illegal value.js"`。而`encodeURIComponent()`方法用于编码 URI 中单独的组件，比如前面 URL 中的`"illegal value.js"`。这两个方法的主要区别是，`encodeURI()`不会编码属于 URL 组件的特殊字符，比如冒号、斜杠、问号、井号，而`encodeURIComponent()`会编码它发现的所有非标准字符。来看下面的例子：
 
    ```
    let uri = "http:// www.wrox.com/illegal value.js#start";
-   
+
    // "http:// www.wrox.com/illegal%20value.js#start"
    console.log(encodeURI(uri));
-   
+
    // "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.js%23start"
    console.log(encodeURIComponent(uri));
    ```
 
-   这里使用`encodeURI()`编码后，除空格被替换为`%20`之外，没有任何变化。而`ecnodeURIComponent()`方法将所有非字母字符都替换成了相应的编码形式。这就是使用`encodeURI()`编码整个URI，但只使用`encodeURIComponent()`编码那些会追加到已有URI后面的字符串的原因。
+   这里使用`encodeURI()`编码后，除空格被替换为`%20`之外，没有任何变化。而`ecnodeURIComponent()`方法将所有非字母字符都替换成了相应的编码形式。这就是使用`encodeURI()`编码整个 URI，但只使用`encodeURIComponent()`编码那些会追加到已有 URI 后面的字符串的原因。
 
-   > **注意**　一般来说，使用`encodeURIComponent()`应该比使用`encodeURI()`的频率更高，这是因为编码查询字符串参数比编码基准URI的次数更多。
+   > **注意**　一般来说，使用`encodeURIComponent()`应该比使用`encodeURI()`的频率更高，这是因为编码查询字符串参数比编码基准 URI 的次数更多。
 
    与`encodeURI()`和`encodeURIComponent()`相对的是`decodeURI()`和`decodeURIComponent()`。`decodeURI()`只对使用`encodeURI()`编码过的字符解码。例如，`%20`会被替换为空格，但`%23`不会被替换为井号（`#`），因为井号不是由`encodeURI()`替换的。类似地，`decodeURIComponent()`解码所有被`encodeURIComponent()`编码的字符，基本上就是解码所有特殊值。来看下面的例子：
 
    ```
    let uri = "http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.js%23start";
-   
+
    // http%3A%2F%2Fwww.wrox.com%2Fillegal value.js%23start
    console.log(decodeURI(uri));
-   
+
    // http:// www.wrox.com/illegal value.js#start
    console.log(decodeURIComponent(uri));
    ```
 
-   这里，`uri`变量中包含一个使用`encodeURIComponent()`编码过的字符串。首先输出的是使用`decodeURI()`解码的结果，可以看到只用空格替换了`%20`。然后是使用`decodeURIComponent()`解码的结果，其中替换了所有特殊字符，并输出了没有包含任何转义的字符串。（这个字符串不是有效的URL。）
+   这里，`uri`变量中包含一个使用`encodeURIComponent()`编码过的字符串。首先输出的是使用`decodeURI()`解码的结果，可以看到只用空格替换了`%20`。然后是使用`decodeURIComponent()`解码的结果，其中替换了所有特殊字符，并输出了没有包含任何转义的字符串。（这个字符串不是有效的 URL。）
 
-   > **注意**　URI方法`encodeURI()`、`encodeURIComponent()`、`decodeURI()`和`decodeURIComponent()`取代了`escape()`和`unescape()`方法，后者在ECMA-262第3版中就已经废弃了。URI方法始终是首选方法，因为它们对所有Unicode字符进行编码，而原来的方法只能正确编码ASCII字符。不要在生产环境中使用`escape()`和`unescape()`。
+   > **注意**　 URI 方法`encodeURI()`、`encodeURIComponent()`、`decodeURI()`和`decodeURIComponent()`取代了`escape()`和`unescape()`方法，后者在 ECMA-262 第 3 版中就已经废弃了。URI 方法始终是首选方法，因为它们对所有 Unicode 字符进行编码，而原来的方法只能正确编码 ASCII 字符。不要在生产环境中使用`escape()`和`unescape()`。
 
-    
+2) **eval()方法**
 
-2. **eval()方法**
-
-   最后一个方法可能是整个ECMAScript语言中最强大的了，它就是`eval()`。这个方法就是一个完整的ECMAScript解释器，它接收一个参数，即一个要执行的ECMAScript（JavaScript）字符串。来看一个例子：
+   最后一个方法可能是整个 ECMAScript 语言中最强大的了，它就是`eval()`。这个方法就是一个完整的 ECMAScript 解释器，它接收一个参数，即一个要执行的 ECMAScript（JavaScript）字符串。来看一个例子：
 
    ```
    eval("console.log('hi')");
@@ -1345,7 +1325,7 @@ ECMA-262对内置对象的定义是“任何由ECMAScript实现提供、与宿�
    console.log("hi");
    ```
 
-   当解释器发现`eval()`调用时，会将参数解释为实际的ECMAScript语句，然后将其插入到该位置。通过`eval()`执行的代码属于该调用所在上下文，被执行的代码与该上下文拥有相同的作用域链。这意味着定义在包含上下文中的变量可以在`eval()`调用内部被引用，比如下面这个例子：
+   当解释器发现`eval()`调用时，会将参数解释为实际的 ECMAScript 语句，然后将其插入到该位置。通过`eval()`执行的代码属于该调用所在上下文，被执行的代码与该上下文拥有相同的作用域链。这意味着定义在包含上下文中的变量可以在`eval()`调用内部被引用，比如下面这个例子：
 
    ```
    let msg = "hello world";
@@ -1375,11 +1355,9 @@ ECMA-262对内置对象的定义是“任何由ECMAScript实现提供、与宿�
    eval = "hi";  // 导致错误
    ```
 
-   > **注意**　解释代码字符串的能力是非常强大的，但也非常危险。在使用`eval()`的时候必须极为慎重，特别是在解释用户输入的内容时。因为这个方法会对XSS利用暴露出很大的攻击面。恶意用户可能插入会导致你网站或应用崩溃的代码。
+   > **注意**　解释代码字符串的能力是非常强大的，但也非常危险。在使用`eval()`的时候必须极为慎重，特别是在解释用户输入的内容时。因为这个方法会对 XSS 利用暴露出很大的攻击面。恶意用户可能插入会导致你网站或应用崩溃的代码。
 
-    
-
-3. **Global对象属性**
+3. **Global 对象属性**
 
    `Global`对象有很多属性，其中一些前面已经提到过了。像`undefined`、`NaN`和`Infinity`等特殊值都是`Global`对象的属性。此外，所有原生引用类型构造函数，比如`Object`和`Function`，也都是`Global`对象的属性。下表列出了所有这些属性。
 
@@ -1405,25 +1383,23 @@ ECMA-262对内置对象的定义是“任何由ECMAScript实现提供、与宿�
    | `TypeError`      | `TypeError`的构造函数      |
    | `URIError`       | `URIError`的构造函数       |
 
-    
+4) **window 对象**
 
-4. **window对象**
-
-   虽然ECMA-262没有规定直接访问`Global`对象的方式，但浏览器将`window`对象实现为`Global`对象的代理。因此，所有全局作用域中声明的变量和函数都变成了`window`的属性。来看下面的例子：
+   虽然 ECMA-262 没有规定直接访问`Global`对象的方式，但浏览器将`window`对象实现为`Global`对象的代理。因此，所有全局作用域中声明的变量和函数都变成了`window`的属性。来看下面的例子：
 
    ```
    var color = "red";
-   
+
    function sayColor() {
      console.log(window.color);
    }
-   
+
    window.sayColor(); // "red"
    ```
 
    这里定义了一个名为`color`的全局变量和一个名为`sayColor()`的全局函数。在`sayColor()`内部，通过`window.color`访问了`color`变量，说明全局变量变成了`window`的属性。接着，又通过`window`对象直接调用了`window.sayColor()`函数，从而输出字符串。
 
-   > **注意**　`window`对象在JavaScript中远不止实现了`ECMAScript`的`Global`对象那么简单。关于`window`对象的更多介绍，请参考第12章。
+   > **注意**　`window`对象在 JavaScript 中远不止实现了`ECMAScript`的`Global`对象那么简单。关于`window`对象的更多介绍，请参考第 12 章。
 
    另一种获取`Global`对象的方式是使用如下的代码：
 
@@ -1435,31 +1411,30 @@ ECMA-262对内置对象的定义是“任何由ECMAScript实现提供、与宿�
 
    这段代码创建一个立即调用的函数表达式，返回了`this`的值。如前所述，当一个函数在没有明确（通过成为某个对象的方法，或者通过`call()`/`apply()`）指定`this`值的情况下执行时，`this`值等于`Global`对象。因此，调用一个简单返回`this`的函数是在任何执行上下文中获取`Global`对象的通用方式。
 
-### 5.4.2　`Math`
+### 5.4.2 　`Math`
 
-ECMAScript提供了`Math`对象作为保存数学公式、信息和计算的地方。`Math`对象提供了一些辅助计算的属性和方法。
+ECMAScript 提供了`Math`对象作为保存数学公式、信息和计算的地方。`Math`对象提供了一些辅助计算的属性和方法。
 
-> **注意**　`Math`对象上提供的计算要比直接在JavaScript实现的快得多，因为`Math`对象上的计算使用了JavaScript引擎中更高效的实现和处理器指令。但使用`Math`计算的问题是精度会因浏览器、操作系统、指令集和硬件而异。
+> **注意**　`Math`对象上提供的计算要比直接在 JavaScript 实现的快得多，因为`Math`对象上的计算使用了 JavaScript 引擎中更高效的实现和处理器指令。但使用`Math`计算的问题是精度会因浏览器、操作系统、指令集和硬件而异。
 
-1. **Math对象属性**
+1. **Math 对象属性**
 
    `Math`对象有一些属性，主要用于保存数学中的一些特殊值。下表列出了这些属性。
 
-   | 属性           | 说明                |
-   | :------------- | :------------------ |
-   | `Math.E`       | 自然对数的基数e的值 |
-   | `Math.LN10`    | 10为底的自然对数    |
-   | `Math.LN2`     | 2为底的自然对数     |
-   | `Math.LOG2E`   | 以2为底e的对数      |
-   | `Math.LOG10E`  | 以10为底e的对数     |
-   | `Math.PI`      | π的值               |
-   | `Math.SQRT1_2` | 1/2的平方根         |
-   | `Math.SQRT2`   | 2的平方根           |
+   | 属性           | 说明                  |
+   | :------------- | :-------------------- |
+   | `Math.E`       | 自然对数的基数 e 的值 |
+   | `Math.LN10`    | 10 为底的自然对数     |
+   | `Math.LN2`     | 2 为底的自然对数      |
+   | `Math.LOG2E`   | 以 2 为底 e 的对数    |
+   | `Math.LOG10E`  | 以 10 为底 e 的对数   |
+   | `Math.PI`      | π 的值                |
+   | `Math.SQRT1_2` | 1/2 的平方根          |
+   | `Math.SQRT2`   | 2 的平方根            |
 
-   这些值的含义和用法超出了本书的范畴，但都是ECMAScript规范定义的，并可以在你需要时使用。
-    
+   这些值的含义和用法超出了本书的范畴，但都是 ECMAScript 规范定义的，并可以在你需要时使用。
 
-2. **min()和max()方法**
+2) **min()和 max()方法**
 
    `Math`对象也提供了很多辅助执行简单或复杂数学计算的方法。
 
@@ -1468,12 +1443,12 @@ ECMAScript提供了`Math`对象作为保存数学公式、信息和计算的地�
    ```
    let max = Math.max(3, 54, 32, 16);
    console.log(max);  // 54
-   
+
    let min = Math.min(3, 54, 32, 16);
    console.log(min);  // 3
    ```
 
-   在3、54、32和16中，`Math.max()`返回54，`Math.min()`返回3。使用这两个方法可以避免使用额外的循环和`if`语句来确定一组数值的最大最小值。
+   在 3、54、32 和 16 中，`Math.max()`返回 54，`Math.min()`返回 3。使用这两个方法可以避免使用额外的循环和`if`语句来确定一组数值的最大最小值。
 
    要知道数组中的最大值和最小值，可以像下面这样使用扩展操作符：
 
@@ -1482,16 +1457,14 @@ ECMAScript提供了`Math`对象作为保存数学公式、信息和计算的地�
    let max = Math.max(...values);
    ```
 
-    
-
 3. **舍入方法**
 
-   接下来是用于把小数值舍入为整数的4个方法：`Math.ceil()`、`Math.floor()`、`Math.round()`和`Math.fround()`。这几个方法处理舍入的方式如下所述。
+   接下来是用于把小数值舍入为整数的 4 个方法：`Math.ceil()`、`Math.floor()`、`Math.round()`和`Math.fround()`。这几个方法处理舍入的方式如下所述。
 
    - `Math.ceil()`方法始终向上舍入为最接近的整数。
    - `Math.floor()`方法始终向下舍入为最接近的整数。
    - `Math.round()`方法执行四舍五入。
-   - `Math.fround()`方法返回数值最接近的单精度（32位）浮点值表示。
+   - `Math.fround()`方法返回数值最接近的单精度（32 位）浮点值表示。
 
    以下示例展示了这些方法的用法：
 
@@ -1499,67 +1472,64 @@ ECMAScript提供了`Math`对象作为保存数学公式、信息和计算的地�
    console.log(Math.ceil(25.9));   // 26
    console.log(Math.ceil(25.5));   // 26
    console.log(Math.ceil(25.1));   // 26
-   
+
    console.log(Math.round(25.9));  // 26
    console.log(Math.round(25.5));  // 26
    console.log(Math.round(25.1));  // 25
-   
+
    console.log(Math.fround(0.4));  // 0.4000000059604645
    console.log(Math.fround(0.5));  // 0.5
    console.log(Math.fround(25.9)); // 25.899999618530273
-   
+
    console.log(Math.floor(25.9));  // 25
    console.log(Math.floor(25.5));  // 25
    console.log(Math.floor(25.1));  // 25
    ```
 
-   对于25和26（不包含）之间的所有值，`Math.ceil()`都会返回26，因为它始终向上舍入。`Math.round()`只在数值大于等于`25.5`时返回26，否则返回25。最后，`Math.floor()`对所有25和26（不包含）之间的值都返回25。
-    
+   对于 25 和 26（不包含）之间的所有值，`Math.ceil()`都会返回 26，因为它始终向上舍入。`Math.round()`只在数值大于等于`25.5`时返回 26，否则返回 25。最后，`Math.floor()`对所有 25 和 26（不包含）之间的值都返回 25。
 
-4. **random()方法**
+4) **random()方法**
 
-   `Math.random()`方法返回一个0~1范围内的随机数，其中包含0但不包含1。对于希望显示随机名言或随机新闻的网页，这个方法是非常方便的。可以基于如下公式使用`Math.random()`从一组整数中随机选择一个数：
+   `Math.random()`方法返回一个 0~1 范围内的随机数，其中包含 0 但不包含 1。对于希望显示随机名言或随机新闻的网页，这个方法是非常方便的。可以基于如下公式使用`Math.random()`从一组整数中随机选择一个数：
 
    ```
    number = Math.floor(Math.random() * total_number_of_choices + first_possible_value)
    ```
 
-   这里使用了`Math.floor()`方法，因为`Math.random()`始终返回小数，即便乘以一个数再加上一个数也是小数。因此，如果想从1~10范围内随机选择一个数，代码就是这样的：
+   这里使用了`Math.floor()`方法，因为`Math.random()`始终返回小数，即便乘以一个数再加上一个数也是小数。因此，如果想从 1~10 范围内随机选择一个数，代码就是这样的：
 
    ```
    let num = Math.floor(Math.random() * 10 + 1);
    ```
 
-   这样就有10个可能的值（1~10），其中最小的值是1。如果想选择一个2~10范围内的值，则代码就要写成这样：
+   这样就有 10 个可能的值（1~10），其中最小的值是 1。如果想选择一个 2~10 范围内的值，则代码就要写成这样：
 
    ```
    let num = Math.floor(Math.random() * 9 + 2);
    ```
 
-   2~10只有9个数，所以可选总数（`total_number_of_choices`）是9，而最小可能的值（`first_possible_value`）是2。很多时候，通过函数来算出可选总数和最小可能的值可能更方便，比如：
+   2~10 只有 9 个数，所以可选总数（`total_number_of_choices`）是 9，而最小可能的值（`first_possible_value`）是 2。很多时候，通过函数来算出可选总数和最小可能的值可能更方便，比如：
 
    ```
    function selectFrom(lowerValue, upperValue) {
      let choices = upperValue - lowerValue + 1;
      return Math.floor(Math.random() * choices + lowerValue);
    }
-   
+
    let num = selectFrom(2,10);
    console.log(num);  // 2~10范围内的值，其中包含2和10
    ```
 
-   这里的函数`selectFrom()`接收两个参数：应该返回的最小值和最大值。通过将这两个值相减再加`1`得到可选总数，然后再套用上面的公式。于是，调用`selectFrom(2,10)`就可以从2~10（包含）范围内选择一个值了。使用这个函数，从一个数组中随机选择一个元素就很容易，比如：
+   这里的函数`selectFrom()`接收两个参数：应该返回的最小值和最大值。通过将这两个值相减再加`1`得到可选总数，然后再套用上面的公式。于是，调用`selectFrom(2,10)`就可以从 2~10（包含）范围内选择一个值了。使用这个函数，从一个数组中随机选择一个元素就很容易，比如：
 
    ```
    let colors = ["red", "green", "blue", "yellow", "black", "purple", "brown"];
    let color = colors[selectFrom(0, colors.length-1)];
    ```
 
-   在这个例子中，传给`selecFrom()`的第二个参数是数组长度减1，即数组最大的索引值。
+   在这个例子中，传给`selecFrom()`的第二个参数是数组长度减 1，即数组最大的索引值。
 
    > **注意**　`Math.random()`方法在这里出于演示目的是没有问题的。如果是为了加密而需要生成随机数（传给生成器的输入需要较高的不确定性），那么建议使用`window.crypto.getRandomValues()`。
-
-    
 
 5. **其他方法**
 
@@ -1574,7 +1544,7 @@ ECMAScript提供了`Math`对象作为保存数学公式、信息和计算的地�
    | `Math.log1p(*x*)`        | 等于`1 + Math.log(*x*)`                 |
    | `Math.pow(*x*, *power*)` | 返回`*x*`的`*power*`次幂                |
    | `Math.pow(*...nums*)`    | 返回`*nums*`中每个数平方和的平方根      |
-   | `Math.clz32(*x*)`        | 返回32位整数`*x*`的前置零的数量         |
+   | `Math.clz32(*x*)`        | 返回 32 位整数`*x*`的前置零的数量       |
    | `Math.sign(*x*)`         | 返回表示`*x*`符号的`1`、`0`、`-0`或`-1` |
    | `Math.trunc(*x*)`        | 返回`*x*`的整数部分，删除所有小数       |
    | `Math.sqrt(*x*)`         | 返回`*x*`的平方根                       |
@@ -1590,22 +1560,22 @@ ECMAScript提供了`Math`对象作为保存数学公式、信息和计算的地�
    | `Math.sin(*x*)`          | 返回`*x*`的正弦                         |
    | `Math.tan(*x*)`          | 返回`*x*`的正切                         |
 
-   即便这些方法都是由ECMA-262定义的，对正弦、余弦、正切等计算的实现仍然取决于浏览器，因为计算这些值的方式有很多种。结果，这些方法的精度可能因实现而异。
+   即便这些方法都是由 ECMA-262 定义的，对正弦、余弦、正切等计算的实现仍然取决于浏览器，因为计算这些值的方式有很多种。结果，这些方法的精度可能因实现而异。
 
-## 5.5　小结
+## 5.5 　小结
 
-JavaScript中的对象称为引用值，几种内置的引用类型可用于创建特定类型的对象。
+JavaScript 中的对象称为引用值，几种内置的引用类型可用于创建特定类型的对象。
 
 - 引用值与传统面向对象编程语言中的类相似，但实现不同。
 - `Date`类型提供关于日期和时间的信息，包括当前日期、时间及相关计算。
-- `RegExp`类型是ECMAScript支持正则表达式的接口，提供了大多数基础的和部分高级的正则表达式功能。
+- `RegExp`类型是 ECMAScript 支持正则表达式的接口，提供了大多数基础的和部分高级的正则表达式功能。
 
-JavaScript比较独特的一点是，函数实际上是`Function`类型的实例，也就是说函数也是对象。因为函数也是对象，所以函数也有方法，可以用于增强其能力。
+JavaScript 比较独特的一点是，函数实际上是`Function`类型的实例，也就是说函数也是对象。因为函数也是对象，所以函数也有方法，可以用于增强其能力。
 
-由于原始值包装类型的存在，JavaScript中的原始值可以被当成对象来使用。有3种原始值包装类型：`Boolean`、`Number`和`String`。它们都具备如下特点。
+由于原始值包装类型的存在，JavaScript 中的原始值可以被当成对象来使用。有 3 种原始值包装类型：`Boolean`、`Number`和`String`。它们都具备如下特点。
 
 - 每种包装类型都映射到同名的原始类型。
 - 以读模式访问原始值时，后台会实例化一个原始值包装类型的对象，借助这个对象可以操作相应的数据。
 - 涉及原始值的语句执行完毕后，包装对象就会被销毁。
 
-当代码开始执行时，全局上下文中会存在两个内置对象：`Global`和`Math`。其中，`Global`对象在大多数ECMAScript实现中无法直接访问。不过，浏览器将其实现为`window`对象。所有全局变量和函数都是`Global`对象的属性。`Math`对象包含辅助完成复杂计算的属性和方法。
+当代码开始执行时，全局上下文中会存在两个内置对象：`Global`和`Math`。其中，`Global`对象在大多数 ECMAScript 实现中无法直接访问。不过，浏览器将其实现为`window`对象。所有全局变量和函数都是`Global`对象的属性。`Math`对象包含辅助完成复杂计算的属性和方法。
