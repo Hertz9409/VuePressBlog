@@ -2,7 +2,7 @@
 
 JavaScript 是单线程的,因为这一特点,我们有了异步方法,任务队列,宏任务,微任务这些概念.
 
-但是随着计算机硬件的发展,家用电脑都已经 8 核 16 线程了,而 JS 依然只能单线程运行,这是对资源的极大浪费.
+但是随着计算机硬件的发展,家用电脑都已经 8 核 16 线程了,而 JS 依然只能单线程运行,这是对资源的极大浪费:).
 
 于是,HTML5 标准中,定义了 Web Worker 这一规范来让 JS 程序实现多线程,占用更多的资源.
 
@@ -14,11 +14,11 @@ JavaScript 是单线程的,因为这一特点,我们有了异步方法,任务队
 
 目前来说,当我们遇到这种问题时都会使用一个最简单粗暴的办法,直接整个页面加一个 loding 蒙板,禁止用户操作,等待计算完成.这种方式在用户体验上是很糟糕的,如果计算时间久了,用户会选择右上角关闭网页的.
 
-而如果我们使用 Web Worker 技术,就可以将计算放到其他线程,用户依然可以操作界面,等到计算成功,通过消息提醒用户查看计算结果.目前实施监督系统基线的审查成果包上传就是这么实现的,上传成果包时不影响用户进行其他操作.
+而如果我们使用 Web Worker 技术,就可以将计算放到其他线程(后台),用户依然可以操作界面,等到计算成功,通过消息提醒用户查看计算结果.目前实施监督系统基线的审查成果包上传就是这么实现的,上传成果包时不影响用户进行其他操作.
 
 2. 服务的心跳检测,精确的计时工具等
 
-就像 windows 系统一样,将很多后台任务作为独立线程隐藏运行.我们也可以将很多和主线程没有太大关系的概念独立为一个单独的子线程去运行,这样主线程的操作不会影响这个功能,这个功能的运行也不会影响主线程.
+就像 windows 系统一样,将很多后台任务作为独立线程隐藏运行.我们也可以将很多和主线程没有太大关系的功能独立为一个个单独的子线程去运行,这样主线程的操作不会影响这些功能,这些功能的运行也不会阻塞主线程.
 
 那么,Web Worker 又是怎么使用的呢?
 
@@ -60,7 +60,9 @@ worker.onmessage = function(e) {
 
 #### 主线程关闭 worker 线程
 
-worker 线程创建后,会一直运行,所以我们在完成计算后,需要关闭 worker 线程.一旦调用此方法,worker 线程会立即停止,哪怕代码还没执行完.
+worker 线程创建后,会一直运行,所以我们在完成计算后,需要关闭 worker 线程.
+
+一旦调用此方法,worker 线程会立即停止,哪怕代码还没执行完.
 
 ```JavaScript
 worker.terminate();
@@ -76,7 +78,7 @@ Worker 有两个监听错误的方法,一个是`onerror`,这个方法监听的�
 
 worker 线程也是可以使用 ajax 来进行网络请求的,只是`XMLHttpRequest` 的 `responseXML`(XML 格式的响应) 和 `channel` 这两个属性的值将总是 `null`
 
-worker 线程也是可以另外创建新的 worker 线程的,这些新创建的 worker 线程与 worker 线程的宿组线程相同.
+worker 线程也是可以另外创建新的 worker 线程的,这些新创建的 worker 线程与 worker 线程的宿主线程相同.
 
 在 worker 线程内部,标准定义了一个关键字`self`,这个对象返回 Worker 的全局作用域,一些 Worker 内部特有的方法,可以通过此对象来调用.包括上面提到的和主线程通信会使用到的`postMessage`,`onmessage`,`onmessageerror`等方法.
 
@@ -100,7 +102,7 @@ self.importScripts('foo.js', 'bar.js', ...);
 
 上面讲到,主线程与 web worker 线程之间是通过 postMessage 进行通信的,并且遵循`传值不传址`的原则,那么如果遇到主线程需要将一个 1G 的数据交给 worker 线程计算的情况,那么这种通信逻辑势必会造成极大的性能消耗和资源浪费,甚至会存在序列化失败的情况.针对这个问题,有一个新的 api 被提出.
 
-这只是一个标签,用来指示对象在特定场合下,对数据所有权的传递转变,比如通过`Worker.postMessage()`方法传递到 Worker 时可用.
+这个 api 只是一个标签,用来指示对象在特定场合下,对数据所有权的传递转变,比如通过`Worker.postMessage()`方法传递到 Worker 时就可使用.
 `ArrayBuffer`,`MessagePort`和`ImageBitmap`实现了此接口.也就是说,面对上面那个 1G 的数据,我们可以使用此特性.此时 postMessage 的语法有所不同`myWorker.postMessage(aMessage, transferList)`.
 
 ```Javascript
@@ -119,9 +121,9 @@ console.log(ab.byteLength); // 0
 SharedWorker 线程是一种可以在多个浏览器页面之间共享的线程.
 
 在使用方式上是类似的.依然是主线程实例化,获取 SharedWorker 实例.
-但是这时,我们得通过 SharedWorker 实例的 port 属性获取一个 MessagePort 对象,使用此对象来对共享 worker 进行控制
+但是这时,我们得通过 SharedWorker 实例的 `port` 属性获取一个 `MessagePort` 对象,使用此对象来对共享 worker 进行控制
 
-而共享线程内部,必须使用 onconnect 方法监听主线程和工作线程的连接,只有连接上以后,我们才能通过 onconnect 事件的 ports 属性获取到与该 worker 相关联的端口,才能传递消息.
+而共享线程内部,必须使用 `onconnect` 方法监听主线程和工作线程的连接,只有连接上以后,我们才能通过 `onconnect` 事件的 `ports` 属性获取到与该 worker 相关联的端口,才能传递消息.
 
 ```JavaScript
 // main
@@ -140,7 +142,7 @@ onconnect = function(e) {
 }
 ```
 
-`MessagePort`除了 postMessage 方法,还有`start`(开启主线程与共享线程的连接,当使用 addEventListener 方法监听 message 消息时,需要显式调用此方法),`close`(关闭主线程与共享线程的连接)方法
+`MessagePort`除了 `postMessage` 方法,还有`start`(开启主线程与共享线程的连接,当使用 `addEventListener` 方法监听 message 消息时,需要显式调用此方法),`close`(关闭主线程与共享线程的连接)方法
 
 ## Web Worker message 消息队列管理
 
@@ -150,3 +152,4 @@ onconnect = function(e) {
 
 - [Web Worker](http://mdn.github.io/simple-web-worker/)
 - [shared Worker](http://mdn.github.io/simple-shared-worker/)
+- [demo](https://codepen.io/hertz9409/pen/VwjPYYq?editors=1111)
