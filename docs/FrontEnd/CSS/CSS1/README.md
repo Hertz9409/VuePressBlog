@@ -249,3 +249,32 @@ clip属性:裁剪区域（clipping region）定义了一个元素边框框中的
 
 * auto: 不裁剪
 * shape : rect(top, right, bottom, left),目前只可以裁剪矩形,css3中增加了新的属性**clip-path**可以裁剪不规则图形
+
+## 使用JS访问元素样式和大小
+
+任何一个支持style特性的HTML元素在js中都有一个对应的`style`属性,这个`style`对象是`CSSStyleDeclaration`的实例,包含了通过HTML的style特性指定的所有样式信息,但不包括与外部样式表或嵌入样式表经层叠而来的样式,但是可以获得内联样式表定义的样式.如果要获取实时计算的样式,可以使用`getComputedStyle()`方法,IE9一下需要使用`currentStyle`属性.
+
+1. 偏移量: 元素在屏幕上占用的所有可见的空间
+
+   * offsetHeight: 元素在垂直方向上占用的空间大小,以像素为单位,包括元素高度,(可见的)水平滚动条高度,上下边框高度
+   * offsetWidth: 元素在水平方向上占用的空间大小.
+   * offsetLeft: 元素左外边框至包含元素的父元素左内边框之间的像素距离
+   * offsetTop: 元素的上外边框至包含元素的父元素的上内边框之间的像素距离
+
+2. 客户区大小: 元素内容及其内边距所占据的空间大小
+
+   * clientWidth: 元素内容区宽度加左右内边距宽度
+   * clientHeight: 元素内容区高度加上下内边距高度
+
+3. 滚动大小: 包含滚动内容的元素的大小
+
+   * scrollHeight: 在没有滚动条的情况下,元素内容的总高度(元素内容的实际大小)
+   * scrollWidth: 在没有滚动条的情况下,元素内容的总宽度
+   * scrollLeft: 被隐藏在内容区域左侧的像素数,通过设置这个属性可以改变元素的滚动位置
+   * scrollTop: 被隐藏在内容区域上方的像素数
+
+4. getBoundingClientRect()
+
+   该方法返回一个矩形对象,包含left,top,right,bottom属性,这几个属性分别表示元素距离浏览器视口的位置.
+
+`上述属性的读取和修改都会造成浏览器回流,产生性能问题`
