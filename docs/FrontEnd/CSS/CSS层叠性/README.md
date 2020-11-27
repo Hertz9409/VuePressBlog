@@ -14,7 +14,7 @@
 
 层叠顺序: 元素发生层叠时的特定的垂直显示顺序.
 
-[层叠顺序](./Image/css-stacking-order.png)
+![层叠顺序](./Image/css-stacking-order.png)
 
 * 最下面的`background/border`指的是层叠上下文的边框和背景色.
 * `inline水平盒子`指的是`inline/inline-block/inline-table`元素的层叠顺序
