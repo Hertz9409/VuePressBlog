@@ -1,11 +1,247 @@
+<!--
+ * @Author: Hertz
+ * @Date: 2020-11-17 17:28:20
+ * @LastEditTime: 2020-12-09 16:44:48
+ * @LastEditors: Hertz
+ * @Description:
+ * @FilePath: \超图服务\README.md
+-->
+
 # 超图服务(IServer)
 
 ## 简介
 
+### SuperMap GIS 10i 产品体系
+
+![超图GIS 10I产品体系](./image/SuperMapGIS.png)
+
+#### 云 GIS 平台软件
+
+SuperMap GIS 产品体系中的云 GIS 平台软件包括 SuperMap iServer、SuperMap iPortal、SuperMap iManager.
+
+- SuperMap IServer : 基于高性能跨平台 GIS 内核的云 GIS 应用服务器,提供全功能的 GIS 服务发布,管理和聚合能力,并支持多层次的扩展开发,提供强大的空间大数据存储、空间大数据分析、流数据实时处理、机器学习和数据科学等 Web 服务,支持海量的矢量、栅格数据"免切片"发布.深度融合微服务、容器化等,提供 PC 端、Web 端和移动端等多种 SDK,可快速构建基于云原生架构的大数据、AI 与三维 GIS 应用系统.
+
+- SuperMap iPortal : 集 GIS 资源整合、搜索、共享和管理于一体的 GIS 门户平台,具备零代码可视化界面定制、多源异构服务注册、系统监控仪表盘等能力.提供丰富的 Web 端应用,可以进行专题图制作、三维可视化、分布式空间分析、大屏创建与展示等操作.作为云端一体化 GIS 平台的用户中心、资源中心、应用中心,可快速构建 GIS 云门户站点.
+
+- SuperMap iManager : 全面的 GIS 运维管理中心,可用于应用服务管理、基础设施管理、大数据管理.提供基于容器技术的 Kubernetes 解决方案,可一键创建基于云原生 GIS 技术的大数据、AI 与三维 GIS 系统.可监控多个 GIS 数据存储、计算与服务节点或其它 Web 站点,监控硬件资源占用、地图访问热点、节点健康状态等指标,实现 GIS 系统的一体化运维管理.可管理运维 GIS 云原生系统,实现细粒度的动态伸缩和灵活部署.
+
+#### 边缘 GIS 平台软件
+
+- SuperMap iEdge : 边缘 GIS 服务器,部署在靠近客户端或数据源的一侧,实现就近服务发布与实时分析计算,可降低响应延时和带宽消耗,减轻云 GIS 中心压力.
+
+#### 端 GIS 平台软件
+
+- 组件 GIS 开发平台: SuperMap iObjects Java、SuperMap iObjects .NET、SuperMap iObjects C++、SuperMap iObjects Python、SuperMap iObjects for Spark、SuperMap iObjects for Blockchain
+- 桌面 GIS 平台: SuperMap iDesktop
+- 跨平台桌面 GIS 平台: SuperMap iDesktopX
+- Web 端 GIS 开发平台: SuperMap iClient JavaScript、SuperMap iClient for WebGL
+- 移动 GIS 开发平台: SuperMap iMobile for iOS/Android
+- SuperMap iTablet for Android / iOS
+
+### IServer 端口
+
+| 端口      | 用途                                                                | 是否可修改 |
+| --------- | ------------------------------------------------------------------- | ---------- |
+| 8090      | 启用 Tomcat 服务                                                    | 是         |
+| 8015      | 停止 Tomcat 服务                                                    | 是         |
+| 1947      | 许可服务                                                            | 否         |
+| 8100      | 启用多进程时,进程间通信                                             | 是         |
+| 8900-9000 | 启用多进程时,启用进程节点                                           | 是         |
+| 10070     | 启用多进程时,HSQLDB 存储临时资源                                    | 是         |
+| 6765      | 启动分布式分析服务                                                  | 是         |
+| 8020      | 启动 datastore 服务                                                 | 是         |
+| 27017     | 使用 datastore 服务时,启用的瓦片数据库 (MongoDB )的默认端口         | 否         |
+| 5432      | 使用 datastore 服务时,启用的关系型数据库(PostgreSQL)的默认端口      | 否         |
+| 9200      | 使用 datastore 服务时,启用的时空数据库(Elasticsearch)的默认端口端口 | 否         |
+| 8097      | 启动地理处理服务                                                    | 是         |
+
+### IServer 安装包目录
+
+- agenthome 文件夹:存放 SuperMap iServer 以 Agent 方式启动时的配置文件和用到的数据.
+- bin 文件夹:启动、停止 Tomcat 服务,以及其他相关的脚本文件,Windows 下从 startup.bat 启动服务,即发布 SuperMap iServer 服务.
+- conf 文件夹:存放 Tomcat 的配置文件和相关的文件类型定义.
+- docs 文件夹:存放 SuperMap iServer 的帮助文档和电子书.deploy 分发包不含这些内容,iServer 界面上的 help 链接至 SuperMap 资源中心的相关内容.
+- iClient 文件夹: 存放 SuperMap iServer 的客户端,包括各个开发平台上的工具库、示范代码等内容,如 forJavaScript、forFlash 等.
+- lib 文件夹:存放 Tomcat 所需的 jar 文件.
+- licenses 文件夹:存放 SuperMap iServer 用到的开源库的许可协议和声明.
+- logs 文件夹:存放 SuperMap iServer 和 Tomcat 启动、运行过程中的日志信息.
+- samples 文件夹:存放 SuperMap iServer 的示范程序及用到的数据.deploy 分发包不包含 samples 文件夹.
+- support 文件夹:存放 JRE、SuperMap iObjects Java 的 bin 文件夹及许可配置工具.
+- temp 文件夹:Tomcat 运行过程中的存放临时文件的位置.
+- webapps 文件夹:SuperMap iServer 部署的文件夹,里面的 iserver 文件夹下存放有 SuperMap iServer 依赖的 jar 文件、配置文件等信息.
+- license.txt 文件:SuperMap iServer 用户许可协议文件.
+- readme.txt 文件:与安装产品并启动服务相关的自述文件,用户可据此安装并启动服务.
+- SuperMap_iServer_10i(2020)\_Readme_Windows_CHS.pdf 文件:SuperMap iServer 的自述文件.
+- BUILD\_* 文件:SuperMap iServer 的版本(由*的内容标识).
+
+### [IServer 主要功能](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/index.htm)
+
+### [IServer 支持平台信息](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/index.htm)
+
+## 使用 IServer
+
+### 服务 URL
+
+`http://<server>:<port>/iserver/services/<servicecomponent>/<serviceinterface>`
+
+- server: 发布服务的服务器地址
+- port: 发布服务的端口号
+- servicecomponent: 已配置的服务组件或服务组件集合的名称
+- serviceinterface: 已配置的并被 servicecomponent 绑定的服务接口名称
 
 ## 服务分类
 
+| REST 服务              | 功能描述                                                                                            |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| 地图 REST 服务         | 与地图相关的功能,例如地图浏览、缩放、查询、对图层的操作等                                           |
+| 数据 REST 服务         | 与数据相关的功能,例如对数据集、数据源的操作,编辑 GIS 数据等                                         |
+| 空间分析 REST 服务     | 与分析相关的功能,例如数据集、几何对象的缓冲分析、叠加分析、表面分析等                               |
+| 交通网络分析 REST 服务 | 与交通网络分析相关的功能,例如旅行商分析、服务区分析、选址分区分析、最近设施查找分析、最佳路径分析等 |
+| 交通换乘分析 REST 服务 | 与交通换乘分析相关的功能,例如公交换乘分析、公交站线查询等                                           |
+| 三维 REST 服务         | 与三维相关的功能,例如对三维缓存数据的操作,三维场景的操作等                                          |
+| 三维网络分析 REST 服务 | 三维场景下的网络分析,如汇与源的计算、上游追踪、下游追踪、上游基础设施查找                           |
+| 动态标绘 REST 服务     | 与动态标绘相关的内容,例如标号及图元的标绘、编辑,态势图文件操作等                                    |
 
-## REST接口
-## 与ArcGIS Server对比
+### 地图 REST 服务
+
+地图 REST 服务提供 maps 资源及其子资源 map、layers,算法资源 area、distance 等,这些资源可以对地图和图层进行访问与操作,包括：
+
+- 获取地图图片与地图信息
+- 获取地图图层信息与图层图片
+- 对图层进行创建、修改、获取或者删除操作
+- 获取鹰眼图片
+- 对地图进行查询并获取结果
+- 高亮几何地物
+- 对地图进行距离或者面积量算
+- 清除服务端缓存的地图图片
+
+### 数据 REST 服务
+
+数据 REST 服务提供 data 资源及其子资源 datasources 和 featureResults,这些资源可以对空间数据进行访问与操作,包括：
+
+- 获取数据源的信息,如数据源名称,数据源描述,引擎类型,投影信息,坐标单位,距离单位等
+- 修改数据源信息,包括数据源描述,坐标单位,距离单位
+- 获取数据源所包含的所有数据集的信息
+- 对数据集进行操作,包括创建、修改或者删除数据集
+- 对数据集中空间数据进行操作,包括获取、修改、添加、删除数据集中空间数据
+- 对数据集中的字段进行操作,包括获取,修改、添加、删除字段
+- 对数据集中字段的统计计算如统计 WRLD30_ID 字段的平均值
+- 对数据集中的要素进行查询
+
+### 空间分析 REST 服务
+
+空间分析 REST 服务,提供 spatialAnalyst 资源及其子资源 datasets、geometry 等,这些资源可以分别提供对于数据集、几何对象的空间分析服务,包括：
+
+- 对数据集进行缓冲区分析
+- 对数据集进行叠加分析
+- 对数据集进行提取等值线、等值面的表面分析
+- 对数据集进行邻近分析,如生成泰森多边形
+- 对数据集进行的差值分析、空间关系分析、线性分析等服务
+- 对几何对象进行缓冲区分析
+- 对几何对象进行叠加分析
+- 对几何对象进行提取等值线、等值面的表面分析
+- 对几何对象进行邻近分析,如生成泰森多边形
+
+### 交通网络分析 REST 服务
+
+交通网络分析 REST 服务通过 networkanalyst 资源及其 networkDataName、edgeweightnames 等子资源,提供了最近设施查找分析、选址分区分析、旅行商分析、多旅行商分析（物流配送）、最佳路径分析、服务区分析
+
+以最佳路径分析为例,最佳路经分析解决的问题是,在网络数据集中,给定 N 个点（N 大于等于 2）,找出按照给定点的次序依次经过这 N 个点的阻抗最小的路经“阻抗最小”有多种理解,如时间最短、费用最低、风景最好、路况最佳、过桥最少、收费站最少、经过乡村最多等在 iClient for Ajax 最佳路径分析范例中,在地图上选择起点与终点,即可得到两点之间的最佳路径
+
+### 交通换乘 REST 服务
+
+交通换乘分析 REST 服务通过 trafficTransferAnalyst 资源及其 transferNetwork 等子资源,提供了公交换乘分析、公交站点查询功能
+
+交通换乘分析支持按照指定的公交站点和公交换乘策略进行换乘分析,返回相应的换乘方案,以及指定的某条换乘路线的详细信息其中,支持的换乘策略包括时间最短、距离最短、最少换乘、少步行等此外,交通换乘分析还支持通过关键字查询站点信息,这样客户端可以先查询站点,再根据合适的站点进行换乘分析
+
+### 三维 REST 服务
+
+三维 REST 服务提供 3D 资源及其子资源 scenes、datas 等,这些资源可以分别提供三维场景和三维数据的操作,包括：
+
+- 获取三维场景的信息
+- 获取三维场景中图层列表
+- 获取三维场景中某一个三维图层的表述,包括三维图层的名称、类型、对应三维数据的路径、所用数据在三维数据中的缓存层号
+- 获取三维数据
+- 获取三维模型缓存数据的索引文件
+- 获取三维数据的配置文件
+- 获取三维缓存数据里某一块缓存文件的版本
+- 获取三维数据中的一块缓存文件
+
+### 三维网络分析
+
+三维网络分析 REST 服务通过 3DNetworkDataName 及其子资源 sinks、sources、traceDownResult、traceUpResult 等,提供了三维场景中的网络分析功能,具体包括：
+
+- 汇查找
+- 源查找
+- 上游追踪
+- 下游追踪
+- 上游基础设施查找
+
+### 动态标绘 REST 服务
+
+动态标绘 REST 服务通过 graphicObject、smlInfos 等资源,提供了标号库信息查询功能和态势图访问与操作,包括：
+
+- 获取标号库 ID 信息
+- 通过指定 ID 获取标号库
+- 获取标号库中的具体标号信息
+- 获取服务器中的态势图文件列表
+- 对服务器中的态势图文件进行保存、加载、删除操作
+- 下载态势图文件
+
+## REST 接口
+
+### 客户端构建 REST 请求
+
+#### 几何对象的 JSON 格式构建
+
+SuperMap iServer 的几何对象由 id、parts、points、style 和 type 等参数表示.
+
+- id: 几何对象的唯一标识符
+- parts: 整型数组,其元素描述几何对象中各个子对象所包含的节点个数
+  - 几何对象从结构上分为简单几何对象和复杂几何对象,简单几何对象为单一对象,复杂几何对象由多个简单对象组成或经过一定的空间运算之后产生.如:矩形为简单面对象,而中空的矩形则是复杂的面对象.
+  - 通常情况下,一个简单几何对象的子对象就是它本身,因此简单几何对象的 parts 是长度为 1 的整型数组,数组中元素值就是这个简单对象节点的个数.一个复杂几何对象由三个简单多边形构成时,那么这个复杂几何对象的 parts 参数值就是一个长度为 3 的整型数组,数组中的每个元素值分别代表这三个多边形的节点个数.
+- points: 组成几何对象的节点的二维坐标对数组,对于简单几何对象,这是个一维数组,对应复杂几何对象,这是个二维数组
+- style: 几何对象的风格,定义几何对象的符号,线型,填充模式等
+- type: 几何对象的类型
+
+简单面几何对象 eg.
+
+```JSON
+{
+    "id": 1,
+    "parts": [4],
+    "points": [{
+        "x": -12.908614415006994,
+        "y": 407.37026387547877
+    },
+    {
+        "x": -2.916359855276923,
+        "y": 248.49341637577055
+
+    },
+    {
+        "x": 250.22075565788498,
+        "y": 305.782342518223
+    },
+    {
+        "x": 185.2711010196395,
+        "y": 413.3656166113168
+    },
+    {
+        "x": -12.908614415006994,
+        "y": 407.37026387547877
+    }],
+    "style": null,
+    "type": "REGION"
+}
+```
+
+#### 用 POST 请求模拟 GET 请求
+
+GET 请求中,我们总是将参数放在 URI 地址中,如果参数过长,例如 distance 接口计算要素长度,就会超出浏览器 URI 长度限制,导致接口调用失败,此时,我们可以使用 POST 请求来代替 GET 请求,但是要注意在 URI 地址后面需要添加参数`_method= GET`来标识该请求.
+
+### REST 接口服务资源层级结构
+
+## 与 ArcGIS Server 对比
+
 ## 总结
