@@ -1,10 +1,10 @@
 <!--
  * @Author: Hertz
  * @Date: 2020-11-17 17:28:20
- * @LastEditTime: 2020-12-09 16:44:48
+ * @LastEditTime: 2020-12-10 17:58:39
  * @LastEditors: Hertz
  * @Description:
- * @FilePath: \超图服务\README.md
+ * @FilePath: \VuePressBlog\docs\GIS\超图服务\README.md
 -->
 
 # 超图服务(IServer)
@@ -74,9 +74,9 @@ SuperMap GIS 产品体系中的云 GIS 平台软件包括 SuperMap iServer、Sup
 - SuperMap_iServer_10i(2020)\_Readme_Windows_CHS.pdf 文件:SuperMap iServer 的自述文件.
 - BUILD\_* 文件:SuperMap iServer 的版本(由*的内容标识).
 
-### [IServer 主要功能](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/index.htm)
+### [IServer 主要功能](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/Product_introduce/iServer6_Capability.htm)
 
-### [IServer 支持平台信息](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/index.htm)
+### [IServer 支持平台信息](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/Product_introduce/iServer_Support.htm)
 
 ## 使用 IServer
 
@@ -240,7 +240,95 @@ SuperMap iServer 的几何对象由 id、parts、points、style 和 type 等参�
 
 GET 请求中,我们总是将参数放在 URI 地址中,如果参数过长,例如 distance 接口计算要素长度,就会超出浏览器 URI 长度限制,导致接口调用失败,此时,我们可以使用 POST 请求来代替 GET 请求,但是要注意在 URI 地址后面需要添加参数`_method= GET`来标识该请求.
 
-### REST 接口服务资源层级结构
+### [REST 接口服务资源层级结构](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/resource_hierarchy.htm)
+
+`超图 REST 接口非常丰富,官方 API 讲解也很详细,这里只说明在二维地图和 EyeMap 中经常使用的 API`
+
+```
+注1: 以下如无特殊说明, root_uri = http://<server>:<port>/iserver/services/{component组件或组件集名}/rest.
+地图模块 component = map-{component}
+数据模块 component = data-{component}
+三维模块 component = 3D-{component}
+空间分析模块 component = spatialanalyst-{component}
+交通网络分析模块 component = transportationanalyst-{component}
+三维网络分析模块 component = networkAnalyst3D-{component}
+交通换乘分析模块 component = traffictransferanalyst-{component}
+数据目录服务模块 component = dataCatalog
+动态标绘服务模块 component = plot-{component}
+分布式分析模块 component = distributedanalyst
+地址匹配模块 component = addressmatch-{component}
+几何服务模块 component = geometry
+Web打印服务模块 component = webprinting
+
+注2: 超图服务一般情况下会提供name和index两种参数标识来定位资源,index为索引号,从0开始编号,与name一一对应.
+
+注3: subLayers 字段表示该图层包含哪些子图层
+```
+
+#### Map 服务接口
+
+1. 获取组件或组件集中的地图服务列表:[root_uri/maps[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/maps.htm)
+
+   支持方法: GET, HEAD
+
+   支持表述格式: RJSON, JSON, HTML, XML, JSONP
+
+2. 获取地图服务基本信息:[root_uri/maps/{mapName|mapIndex}[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/map.htm)
+
+   此接口除了可以获取地图服务的基本信息,还可以通过代码加载图层进行预览,同时还提供了地图动态投影的方法.
+
+   支持方法: GET, HEAD
+
+   支持表述格式: RJSON,JSON,JSONP,HTML,XML,KML,Leaflet,openlayers3(with MVT),MapboxGL,for Classic (with Vector Tile), Tianditu
+
+3. 获取地图服务全幅显示的图片:[root_uri/maps/{mapName|mapIndex}/entireImage[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/entireImage.htm)
+
+   此接口支持对输出的全幅图片进行各种定制
+
+   支持方法: GET, HEAD
+
+   支持表述格式: PNG、BMP、GIF、JPG、RJSON、JSON、HTML、XML、WebP
+
+4. 获取地图服务鹰眼图:[root_uri/maps/{mapName|mapIndex}/overview[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/overview.htm)
+
+   此接口支持对输出的鹰眼图片进行各种定制
+
+   支持方法: GET, HEAD
+
+   支持表述格式: PNG、BMP、GIF、JPG、RJSON、JSON、HTML、XML、WebP
+
+5. 获取地图服务资源图片接口:
+
+   - 根据参数动态生成一幅地图图片[root_uri/maps/{mapName|mapIndex}/image[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/image.htm)
+   - 获取矢量切片的一个瓦片要素[root_uri/maps/{mapName|mapIndex}/tileFeature[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/tileFeature/tileFeature.htm)
+   - 根据参数动态获取地图格网图片[root_uri/maps/{mapName|mapIndex}/tileimage[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/tileImage.htm)
+   - 一次获取多张地图格网图片[root_uri/maps/{mapName|mapIndex}/tileimages[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/tileImages.htm)
+   - 针对 EPSG 为 3857 的地图服务,可以加载 ZXY 标准瓦片(其他坐标系会被强制投影转换)[root_uri/maps/{mapName|mapIndex}/zxyTileImage[/z/x/y][.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/zxyTileImage/zxyTileImage.htm)
+
+6. 获取地图服务坐标系详情信息:[root_uri/maps/{mapName|mapIndex}/prjCoordSys[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/prjCoordSys.htm)
+
+   此接口支持以通用的 WKT 格式返回地图坐标系信息(返回二进制文件)
+
+   支持方法: GET, HEAD
+
+   支持表述格式: RJSON、JSON、HTML、XML、WKT
+
+7. 获取地图服务下的图层列表:[root_uri/maps/{mapName|mapIndex}/layers[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/layers/layers.htm)
+
+   注意: 此接口返回数组,不仅会返回图层列表,其中图层信息以及子图层信息也会一并返回.超图服务下的图层分为 SuperMap 地图图层, WMS 图层和 WFS 图层,其中 SuperMap 地图图层里面所有的子图层都被放在了`subLayers`字段中
+
+8. 获取具体图层的信息:`root_uri/maps/{mapName|mapIndex}/layers/{layerName|layerIndex}[.format]`
+
+   此接口和(7)接口返回结果对应元素信息一致.
+
+9. 获取图层的**子图层**信息:
+
+   - `root_uri/maps/{mapName|mapIndex}/layers/{layerIndex}/sublayers/{sublayerIndex}[.<format>]`
+   - `root_uri/maps/{mapName|mapIndex}/layers/{LYGLQ@XJGLQ.2@@XJGLQ}[.format]`
+
+   注意: 子图层的 URI 命名规则：【layers 资源的 URI】+'/'+【子图层名】+'@@'+【父图层名】+【URI 后缀】
+
+   子图层名命名规则: 【图层名】+'@'+【数据源名字】+'.1' `.1`后缀为超图自动添加,用于区分同名的子图层,`此处需要注意,url地址中为.1,但是通过接口获取到的图层名称使用的是#1`,此处这么处理应该是因为#在 url 中有特殊含义.
 
 ## 与 ArcGIS Server 对比
 
