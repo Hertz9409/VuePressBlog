@@ -1,7 +1,7 @@
 <!--
  * @Author: Hertz
  * @Date: 2020-11-17 17:28:20
- * @LastEditTime: 2020-12-10 17:58:39
+ * @LastEditTime: 2020-12-15 18:19:29
  * @LastEditors: Hertz
  * @Description:
  * @FilePath: \VuePressBlog\docs\GIS\超图服务\README.md
@@ -329,6 +329,57 @@ Web打印服务模块 component = webprinting
    注意: 子图层的 URI 命名规则：【layers 资源的 URI】+'/'+【子图层名】+'@@'+【父图层名】+【URI 后缀】
 
    子图层名命名规则: 【图层名】+'@'+【数据源名字】+'.1' `.1`后缀为超图自动添加,用于区分同名的子图层,`此处需要注意,url地址中为.1,但是通过接口获取到的图层名称使用的是#1`,此处这么处理应该是因为#在 url 中有特殊含义.
+
+10. 获取图层图例信息:
+
+    - ①`root_uri/maps/{mapName|mapIndex}/layers/{layerIndex}/sublayers/{sublayerIndex}/legend[.<format>]`
+    - ②`root_uri/maps/{mapName|mapIndex}/layers/{LYGLQ@XJGLQ.2@@XJGLQ}/legend[.format]`
+    - ③`root_uri/maps/{mapName|mapIndex}/layers/{layerIndex}/sublayers/{sublayerIndex}/items/{itemID}/legend[.<format>]`
+    - ④`root_uri/maps/{mapName|mapIndex}/layers/{LYGLQ@XJGLQ.2@@XJGLQ}/items/{itemID}/legend[.format]`
+
+    注意: 一般情况下,①② 两个接口并不能获得真正的图层图例,大部分时候,我们得使用 ③④ 接口.
+    那么,③④ 接口中的 itemID 是什么意思,又是从哪里获取的呢?
+
+    还记得前面提到的获取地图图层信息的接口吧,这个接口返回了一大串信息,其中就包含了地图的渲染方式,itemID 就是从这儿来.
+
+    ![超图服务图层信息-渲染信息](./image/smlayerinfo.png)
+
+    从此处我们可以获取到地图图层的配图信息,然后通过 legend 接口我们可以直接获取地图图例图片,当然,我们也可以使用 style 信息手动构建图例.
+
+11. 针对当前服务进行数据查询(针对当前数据源下的单图层查询)[root_uri/maps/{mapName|mapIndex}/queryResults[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/queryResults/queryresults.htm)
+
+    此接口可以对地图下图层进行 SQL 查询,距离查询,空间查询,最近地物查询,范围查询以及海图查询等.地位类似于 ArcGIS Server 的 Query 查询.
+
+12. 在 map 服务中创建临时图层,用于渲染专题图或者要素过滤图[root_uri/maps/{mapName|mapIndex}/templayersset[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/tempLayersSet/tempLayersSet.htm)
+
+    此时创建的临时图层和服务中的图层除了名字的特殊以外,没有任何不同,图层带的几个接口,临时图层也支持,不过临时图层不支持查询.
+
+13. 获取临时图层集信息并加载其中的图层数据[root_uri/maps/{mapName|mapIndex}/templayersset/{tempLayersID}[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/maps/map/tempLayersSet/tempLayers/tempLayers.htm)
+
+#### Data 服务接口
+
+1. 支持跨数据源查询,但是不能跨地图服务,和 map 服务提供的单图层查询接口表现一致.[root_uri/data/featureResults[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/data/featureResults/featureResults.htm)
+
+2. 获取指定图层下的属性字段信息
+
+   注意,超图并没有提供一次获取所有属性字段信息的接口,所以要想实现此功能,我们得分两步:
+
+   - 获取图层所有属性字段名称[root_uri/data/datasources/{datasourceName|datasourceIndex}/datasets/{datasetName|datasetIndex}/fields[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/data/datasources/datasource/datasets/dataset/fields/fields.htm)
+   - 按需获取每一个属性字段的信息[root_uri/data/datasources/{datasourceName|datasourceIndex}/datasets/{datasetName|datasetIndex}/fields/{fieldName|fieldIndex}[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/data/datasources/datasource/datasets/dataset/fields/field/field.htm)
+
+#### geometry 服务接口
+
+1. 距离计算[geometry_uri/distance[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/distance.htm)
+
+   这个接口在使用时只需要注意 mode 参数,分为 Geodesic(测地线模式,沿着地球椭球体的最短距离,默认使用),Planar(平面模式,两点直线距离,仅当量算时坐标串为投影坐标系有效).
+
+2. 面积计算[geometry_uri/area[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/area.htm)
+
+3. geometry 坐标转换[geometry_uri/coordTransfer[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/coordtransfer.htm)
+
+#### spatialAnalyst 服务接口
+
+1.
 
 ## 与 ArcGIS Server 对比
 
