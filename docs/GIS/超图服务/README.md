@@ -1,7 +1,7 @@
 <!--
  * @Author: Hertz
  * @Date: 2020-11-17 17:28:20
- * @LastEditTime: 2020-12-15 18:19:29
+ * @LastEditTime: 2020-12-16 16:56:06
  * @LastEditors: Hertz
  * @Description:
  * @FilePath: \VuePressBlog\docs\GIS\超图服务\README.md
@@ -379,8 +379,38 @@ Web打印服务模块 component = webprinting
 
 #### spatialAnalyst 服务接口
 
-1.
+    空间分析服务分为针对数据集数据进行分析和针对几何对象进行分析,在项目中,我们一般是使用针对几何对象进行分析的接口.
+
+1. Buffer 缓冲区分析[spatialAnalyst_uri/geometry/buffer[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/spatialAnalyst/geometry/geometryBufferResults/geometryBufferResults.htm)
+
+2. Overlay 叠加分析[spatialAnalyst_uri/geometry/overlay[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/spatialAnalyst/geometry/geometryOverlayResults/geometryOverlayResults.htm)
+
+   注意,Overlay 提供了多种叠加方式(裁剪,擦除,合并,相交,同一,对称差,更新),对应了 arcgis 几何服务中不同的接口,目前来说项目中基本够用.
+
+#### webPrinting 地图打印接口
+
+这是 IServer 10i 新增的接口,用来根据预先定义的模板出图打印的.
+
+1. 获取已有模板列表信息(GET)或新增模板(POST)[webPrinting_uri/layouts[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/layoutTemplates.htm)
+
+2. 获取打印任务列表,包括已完成的和在打印的(GET),创建新的打印任务(POST)[webPrinting_uri/jobs[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJobs.htm)
+
+3. 获取具体打印任务的信息和任务状态[webPrinting_uri/jobs/{jobId}[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJob.htm)
+
+4. 获取打印结果文档数据流[webPrinting_uri/jobs/{jobId}/result](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJobResult.htm)
 
 ## 与 ArcGIS Server 对比
 
+- arcgis 服务按照服务类型主要有 MapServer,FeatureServer,GeometryServer,GPServer 四种类型,这其实可以类比超图的 Map 服务,Data 服务,几何服务和空间分析服务和其他服务.
+
+- 由于超图服务由服务提供者,服务组件,服务接口三个部分组成,每一个服务接口都是通过这三个部分的排列组合来实现,也就导致了同一个功能可以在多个地方进行调用,这是一个特别容易让人困惑的点.而 REST 服务风格的 uri 地址拼接访问特点又会对接口调用造成困扰,特别是熟悉 arcgis 服务以后,会觉得超图服务的组织特别混乱,例如获取服务图例的方式,相对于 arcgis 来说,超图的接口设计实在是太复杂了,但是这种复杂也是 rest 接口的完整体现,这样其实是可以简化 iserver 开发人员的工作的.经过深入学习,也是能够理解其中的逻辑的.
+
+- 严格来说,超图服务是没有切片服务的,它是通过提供 tileimage 接口来模拟切片请求,并利用服务器切片缓存特性来动态对切片进行缓存,以提高第二次的接口请求效率.
+
+- 超图和 arcgis 还有一个不同就是,一切皆缓存,arcgis 的接口返回结果不会在服务端进行缓存,客户端获取后就会消失,而超图服务,不管是查询接口,地图渲染接口,都会创建一个缓存记录,将结果记录在缓存中,供用户使用,当然这些缓存也有自己的生命周期.
+
+- 当然,我们也要正视超图在分析算法方面的不足,arcgis 可以将 desktop 的分析能力发布为 GPServer,也可以二次开发 SOE 服务用于对服务功能进行拓展,这些都是超图 IServer 不能支持的.
+
 ## 总结
+
+超图 IServer 目前在 WebGIS 方面的能力已经完全足够,我们只需要合理利用它的接口就基本可以实现大部分需求,重点其实是在理解 IServer 的架构以及对 REST 服务接口进行构建方面,要花费更多的时间和精力.至于更多的和业务相关的空间分析能力,依然得依赖于后台基于超图 API 开发的接口服务.
