@@ -1,7 +1,7 @@
 <!--
  * @Author: Hertz
  * @Date: 2020-11-17 17:28:20
- * @LastEditTime: 2020-12-16 16:56:06
+ * @LastEditTime: 2020-12-16 17:21:31
  * @LastEditors: Hertz
  * @Description:
  * @FilePath: \VuePressBlog\docs\GIS\超图服务\README.md
@@ -369,21 +369,21 @@ Web打印服务模块 component = webprinting
 
 #### geometry 服务接口
 
-1. 距离计算[geometry_uri/distance[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/distance.htm)
+1. 距离计算[geometry_uri/distance[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/distance.htm)
 
    这个接口在使用时只需要注意 mode 参数,分为 Geodesic(测地线模式,沿着地球椭球体的最短距离,默认使用),Planar(平面模式,两点直线距离,仅当量算时坐标串为投影坐标系有效).
 
-2. 面积计算[geometry_uri/area[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/area.htm)
+2. 面积计算[geometry_uri/area[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/area.htm)
 
-3. geometry 坐标转换[geometry_uri/coordTransfer[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/coordtransfer.htm)
+3. geometry 坐标转换[geometry_uri/coordTransfer[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/geometry/coordtransfer.htm)
 
 #### spatialAnalyst 服务接口
 
     空间分析服务分为针对数据集数据进行分析和针对几何对象进行分析,在项目中,我们一般是使用针对几何对象进行分析的接口.
 
-1. Buffer 缓冲区分析[spatialAnalyst_uri/geometry/buffer[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/spatialAnalyst/geometry/geometryBufferResults/geometryBufferResults.htm)
+1. Buffer 缓冲区分析[spatialAnalyst_uri/geometry/buffer[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/spatialAnalyst/geometry/geometryBufferResults/geometryBufferResults.htm)
 
-2. Overlay 叠加分析[spatialAnalyst_uri/geometry/overlay[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/spatialAnalyst/geometry/geometryOverlayResults/geometryOverlayResults.htm)
+2. Overlay 叠加分析[spatialAnalyst_uri/geometry/overlay[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/spatialAnalyst/geometry/geometryOverlayResults/geometryOverlayResults.htm)
 
    注意,Overlay 提供了多种叠加方式(裁剪,擦除,合并,相交,同一,对称差,更新),对应了 arcgis 几何服务中不同的接口,目前来说项目中基本够用.
 
@@ -391,11 +391,11 @@ Web打印服务模块 component = webprinting
 
 这是 IServer 10i 新增的接口,用来根据预先定义的模板出图打印的.
 
-1. 获取已有模板列表信息(GET)或新增模板(POST)[webPrinting_uri/layouts[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/layoutTemplates.htm)
+1. 获取已有模板列表信息(GET)或新增模板(POST)[webPrinting_uri/layouts[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/layoutTemplates.htm)
 
-2. 获取打印任务列表,包括已完成的和在打印的(GET),创建新的打印任务(POST)[webPrinting_uri/jobs[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJobs.htm)
+2. 获取打印任务列表,包括已完成的和在打印的(GET),创建新的打印任务(POST)[webPrinting_uri/jobs[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJobs.htm)
 
-3. 获取具体打印任务的信息和任务状态[webPrinting_uri/jobs/{jobId}[.<format>]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJob.htm)
+3. 获取具体打印任务的信息和任务状态[webPrinting_uri/jobs/{jobId}[.format]](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJob.htm)
 
 4. 获取打印结果文档数据流[webPrinting_uri/jobs/{jobId}/result](http://support.supermap.com.cn/DataWarehouse/WebDocHelp/iServer/mergedProjects/SuperMapiServerRESTAPI/root/webprinting/webPrintingJobResult.htm)
 
