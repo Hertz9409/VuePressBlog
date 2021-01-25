@@ -1,3 +1,11 @@
+/*
+ * @Author: Hertz
+ * @Date: 2020-12-20 00:20:17
+ * @LastEditTime: 2021-01-25 10:25:09
+ * @LastEditors: Hertz
+ * @Description: 
+ * @FilePath: /VuePressBlog/docs/.vuepress/config.js
+ */
 const { fs, path } = require('@vuepress/shared-utils')
 module.exports = () => ({
     title: "Hertz's Blog",
@@ -46,7 +54,7 @@ function getCatalog(catalog) {
     let firstCatalog = [];
     let secondCatalog = [];
     fs.readdirSync(path.resolve(__dirname, `../${catalog}`)).forEach(dirname => {
-        if (dirname.toLocaleUpperCase().indexOf('README') < 0) {
+        if (dirname.toLocaleUpperCase().indexOf('README') < 0 && dirname.toLocaleUpperCase().indexOf('DS_STORE') < 0) {
             firstCatalog.push([dirname + '/', dirname]);
             // 判断二级目录有没有README.md文件,没有则是二级目录文件夹,需要继续遍历
             if(fs.readdirSync(path.resolve(__dirname, `../${catalog}/${dirname}`)).includes('README.md')) {
