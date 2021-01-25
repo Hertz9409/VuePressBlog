@@ -64,13 +64,13 @@ transition属性是几个属性的缩写:
 
 ## animation 动画
 
-<img src="assets/%E7%94%BB%E5%B8%83%201.png" style="zoom:50%;"/>
+<img src="./assets/%E7%94%BB%E5%B8%83%201.png" style="zoom:50%;"/>
 
 transition基本上能够实现我们需要的动效,但是有个问题,transition之所以称之为过渡而非动画,就是在于其变化需要手动触发,而animation属性设置后,可以按照要求自动执行.
 
 ### 浏览器兼容性
 
-<img src="assets/image-20210121140502679.png" alt="image-20210121140502679" style="zoom:50%;" alt="现代浏览器都支持该属性"/>
+<img src="./assets/image-20210121140502679.png" alt="image-20210121140502679" style="zoom:50%;" alt="现代浏览器都支持该属性"/>
 
 ### 属性值
 
@@ -86,7 +86,7 @@ animation属性也是一个简写属性,它可以包括:
   * step-start: steps(1,start)
   * step-end: steps(1,end)
 
-  <img src="assets/steps.gif" alt="steps" style="zoom:50%;" />
+  <img src="./assets/steps.gif" alt="steps" style="zoom:50%;" />
 
 * animation-delay: 动画延迟执行时间,默认0s,如果为负值会让动画立即执行,但是动画会从动画序列中的某个位置开始执行,如定义为-1s,则从1s立即开始执行.
 
@@ -99,9 +99,9 @@ animation属性也是一个简写属性,它可以包括:
   * reverse: 与normal相对,动画反向执行,从to向from播放
   * alternate-reverse: 反向交替,反向开始交替
 
-  <img src="assets/image-20210121144224634.png" alt="image-20210121144224634" style="zoom:50%;" />
+  <img src="./assets/image-20210121144224634.png" alt="image-20210121144224634" style="zoom:50%;" />
 
-  <img src="assets/animation-direction.gif" style="zoom:50%;" />
+  <img src="./assets/animation-direction.gif" style="zoom:50%;" />
 
 * animation-fill-mode: 设置动画在开始播放前和结束播放后的状态.
 
