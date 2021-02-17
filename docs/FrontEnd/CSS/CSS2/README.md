@@ -41,7 +41,11 @@ categories: css
 通俗得讲 伪类的效果可以通过添加实际的类来实现,而伪元素的效果可以通过添加实际的元素来实现
 它们的本质区别就是**是否抽象创造了新元素**
 
+![伪类](./assets/cssweilei.png)
+
 [所有伪类](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-classes#%E6%A0%87%E5%87%86%E4%BC%AA%E7%B1%BB%E7%B4%A2%E5%BC%95)
+
+![伪元素](./assets/cssweiyuansu.png)
 
 [所有伪元素](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Pseudo-elements#%E6%A0%87%E5%87%86%E4%BC%AA%E5%85%83%E7%B4%A0%E7%B4%A2%E5%BC%95)
 
